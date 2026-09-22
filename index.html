@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DigiLab — Innovación digital, hecha a tu medida</title>
+<meta name="description" content="Laboratorio digital para negocios independientes: diseño de marca, digitalización y acompañamiento continuo.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+
+    body { margin: 0; }
+    a, a:hover { color: inherit; text-decoration: none; }
+    * { box-sizing: border-box; }
+    button { font-family: inherit; cursor: pointer; }
+    @keyframes dlvFloatA { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(22px,-18px); } }
+    @keyframes dlvFloatB { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(-20px,16px); } }
+    @keyframes dlvFloatC { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(16px,20px); } }
+
+    /* Todo lo que se puede tocar con el mouse se resalta al pasar sobre él. */
+    .dlv-menu-btn { transition: opacity .15s ease, transform .15s ease; }
+    .dlv-menu-btn:hover { opacity: 0.72; transform: scale(1.08); }
+
+    .dlv-btn-primary { transition: transform .15s ease, box-shadow .15s ease; }
+    .dlv-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(246,169,211,0.4); }
+
+    /* Sistema de botones consolidado: un solo tratamiento por rol.
+       - Primario (acción principal): relleno rosa sólido (inline, "Cotiza gratis").
+       - Secundario (ver más / navegar): contorno pistache con leve sombra,
+         usado por igual en el hero y en el resto del sitio. */
+    .dlv-btn-pistache {
+      background: transparent;
+      box-shadow: 0 2px 10px rgba(206,227,181,0.08);
+      transition: background-color .2s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+    }
+    .dlv-btn-pistache:hover {
+      background-color: rgba(206,227,181,0.12);
+      border-color: rgba(206,227,181,0.85);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(206,227,181,0.2);
+    }
+
+    /* Tamaño único para todos los encabezados de sección. */
+    .dlv-section-h2 { font-size: 34px; }
+
+    /* Sección "Contáctanos": mismo sistema visual del hero (esferas glossy +
+       grano) para no romper la identidad del sitio. Las proporciones se
+       basan en la serie de Fibonacci: el título usa 55px, el contenido se
+       limita a 610px de ancho, y los espacios internos —13, 21, 34, 55,
+       89px— y el tamaño de las esferas decorativas (55, 89, 144, 233px)
+       son también números de la serie. */
+    .dlv-contact-h2 { font-size: 55px; }
+
+    .dlv-feature-card { transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+    .dlv-feature-card:hover { transform: translateY(-4px); box-shadow: 0 14px 26px rgba(0,0,0,0.1); border-color: #F6A9D3; }
+
+    /* Portafolio y Contáctanos: presentación al estilo wiggi.mx (referencia
+       del cliente) — nada de recuadros fijos ni de fondo animado por sí
+       solo. Cada pantalla es una zona de scroll normal (.dlv-grow-zone,
+       exactamente 100vh, SIN sticky ni alto extra: cero scroll de más) cuyo
+       propio fondo es SIEMPRE el negro de Digilab (la base antes de que
+       aparezca cualquier color). Dentro, una tarjeta (.dlv-grow-card, con
+       el color real de ESTA pantalla) nace pequeña, anclada abajo a la
+       derecha, y crece hasta cubrir toda la pantalla — el "--p" que
+       controla ese crecimiento lo fija el script al final del documento en
+       cada scroll, en proporción exacta a cuánto de esa zona ya entró al
+       viewport (0 = la zona recién asoma abajo, 1 = ya ocupa toda la
+       pantalla), así que el avance depende 1:1 del scroll, sin pausas
+       muertas ni scroll de más. El texto (.dlv-grow-fade) se desvanece
+       hacia adentro con el mismo "--p". Las esferas glossy de cada tarjeta
+       (.dlv-grow-sphere) NO acompañan todo el crecimiento: se quedan en
+       0 de opacidad hasta que el color ya está prácticamente completado, y
+       solo entonces aparecen — así no compiten visualmente con la propia
+       transición de color. Contáctanos usa el mismo mecanismo, con una
+       tarjeta negra que crece sobre esa misma base negra. */
+    .dlv-grow-zone { position: relative; height: 100vh; height: 100svh; overflow: hidden; }
+    .dlv-grow-card {
+      position: absolute; right: 0; bottom: 0;
+      width: calc(54% + 46% * var(--p, 0));
+      height: calc(58vh + 42vh * var(--p, 0));
+      border-radius: calc(28px - 28px * var(--p, 0));
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+    }
+    .dlv-grow-fade { opacity: var(--p, 0); transform: translateY(calc(13px * (1 - var(--p, 0)))); }
+    /* Esferas glossy dentro de cada tarjeta: invisibles mientras la tarjeta
+       todavía está creciendo, y solo aparecen ya sobre el color terminado
+       (último 8% del avance "--p"), en vez de acompañar todo el crecimiento. */
+    .dlv-grow-sphere { opacity: calc(0.6 * clamp(0, (var(--p, 0) - 0.92) * 12.5, 1)); }
+    /* Portafolio: texto e imagen en columnas separadas (.dlv-pf-row), para
+       que nunca se superpongan entre sí. La tarjeta que crece con el scroll
+       (.dlv-grow-card, mismo motor de siempre) queda contenida DENTRO de su
+       propia columna (.dlv-pf-image-col, que es su nuevo "contenedor de
+       referencia" para el ancho/alto en porcentaje) en vez de crecer sobre
+       toda la zona como antes — por eso solo redefinimos su ancho/alto aquí,
+       el resto de sus reglas (posición, esquinas, sombra) las hereda igual
+       de la clase base, y Contáctanos —que sigue usando .dlv-grow-card a
+       pantalla completa— no se ve afectado. */
+    .dlv-pf-row { display: flex; align-items: stretch; height: 100%; }
+    .dlv-pf-image-col { position: relative; flex: 1 1 56%; }
+    .dlv-pf-image-col .dlv-grow-card {
+      width: calc(58% + 42% * var(--p, 0));
+      height: calc(58% + 42% * var(--p, 0));
+    }
+    .dlv-pf-slide-title { font-size: 55px; }
+    .dlv-pf-cta { background: #FFFFFF; color: #171012; }
+    .dlv-pf-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.35); }
+
+    .dlv-link { transition: opacity .15s ease; }
+    .dlv-link:hover { opacity: 0.7; }
+
+    .dlv-footer-link { transition: color .15s ease; }
+    .dlv-footer-link:hover { color: #F6A9D3; }
+
+    /* Enlaces de "Navegación" en el pie: subrayado mientras el mouse
+       permanece sobre el elemento. Usa borde inferior (no text-decoration)
+       para que se mantenga estable y sin parpadeo mientras dura el hover. */
+    .dlv-footer-nav-link { display:inline-block; width:fit-content; align-self:flex-start; border-bottom:1px solid transparent; padding-bottom:2px; line-height:1.3; transition: color .15s ease, border-color .15s ease; }
+    .dlv-footer-nav-link:hover { color: #F6A9D3; border-color: currentColor; }
+
+    .dlv-wa-float { transition: transform .15s ease, box-shadow .15s ease; }
+    .dlv-wa-float:hover { transform: scale(1.08); box-shadow: 0 12px 26px rgba(0,0,0,0.5); }
+
+    /* Multiplataforma: tablet. Las propiedades responsivas viven en clases
+       (no en el style inline) para que estas reglas puedan sobreescribirlas. */
+    @media (max-width: 1024px) {
+      .dlv-header { padding: 22px 32px 0 !important; }
+      .dlv-logo { font-size: 22px !important; }
+      .dlv-hero-content { padding: 0 32px !important; max-width: 78% !important; }
+      .dlv-hero-h1 { font-size: 42px !important; }
+      .dlv-hero-p { font-size: 16px !important; }
+      .dlv-diff-section, .dlv-pf-text-wrap { padding: 72px 32px !important; }
+      .dlv-section-h2 { font-size: 29px !important; }
+      .dlv-diff-grid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+      .dlv-pf-slide-title { font-size: 40px !important; }
+      .dlv-contact-section { padding: 72px 32px !important; }
+      .dlv-contact-h2 { font-size: 38px !important; }
+      .dlv-footer { padding: 56px 32px 32px !important; }
+      .dlv-footer-grid { grid-template-columns: 1fr 1fr !important; row-gap: 32px !important; }
+    }
+
+    /* Multiplataforma: móvil. */
+    @media (max-width: 640px) {
+      .dlv-header { padding: 18px 20px 0 !important; }
+      .dlv-logo { font-size: 20px !important; }
+      .dlv-hero-content { padding: 0 20px !important; max-width: 100% !important; }
+      .dlv-hero-eyebrow { font-size: 11px !important; padding: 8px 16px !important; max-width: 260px !important; }
+      .dlv-hero-h1 { font-size: 30px !important; line-height: 1.15 !important; }
+      .dlv-hero-p { font-size: 14px !important; }
+      .dlv-hero-cta-row { flex-direction: column !important; align-items: stretch !important; }
+      .dlv-hero-cta-row button, .dlv-hero-cta-row a { text-align: center !important; justify-content: center !important; }
+      .dlv-diff-section, .dlv-pf-text-wrap { padding: 56px 20px !important; }
+      .dlv-section-h2 { font-size: 25px !important; }
+      .dlv-diff-grid { grid-template-columns: 1fr !important; }
+      .dlv-pf-slide-title { font-size: 30px !important; }
+      .dlv-grow-card { width: calc(66% + 34% * var(--p, 0)) !important; height: calc(46vh + 54vh * var(--p, 0)) !important; }
+      /* En móvil no entran dos columnas lado a lado sin apretar el texto:
+         se apilan (texto arriba, imagen abajo) en vez de partir la pantalla
+         a la mitad, y la tarjeta usa su propio porcentaje de columna en
+         vez del que hereda para Contáctanos. */
+      .dlv-pf-row { flex-direction: column !important; }
+      .dlv-pf-text-wrap { flex: 0 0 auto !important; max-width: 100% !important; padding: 28px 20px 12px !important; }
+      .dlv-pf-image-col { flex: 1 1 auto !important; width: 100% !important; padding: 0 20px 20px !important; }
+      .dlv-pf-image-col .dlv-grow-card { width: calc(66% + 34% * var(--p, 0)) !important; height: calc(46vh + 54vh * var(--p, 0)) !important; }
+      .dlv-contact-section { padding: 56px 20px !important; }
+      .dlv-contact-h2 { font-size: 28px !important; }
+      .dlv-footer { padding: 48px 20px 28px !important; }
+      .dlv-footer-grid { grid-template-columns: 1fr !important; row-gap: 28px !important; }
+      .dlv-wa-float { width: 48px !important; height: 48px !important; right: 16px !important; bottom: 16px !important; }
+    }
+  
+</style>
+</head>
+<body>
+<div style="width:100%; min-height:100vh; background:#171012; font-family:'IBM Plex Sans', system-ui, sans-serif; position:relative;">
+
+  <!-- Hero: fondo de esferas glossy flotantes ("Principal") — el header vive
+       DENTRO de este mismo fondo (nunca en una barra plana separada), para
+       que el logo y el menú se mezclen con la página sin ninguna línea de
+       corte entre una franja sólida y el arte de fondo. -->
+  <section class="dlv-hero-section" style="position:relative; overflow:hidden; height:100vh; height:100svh;">
+    <div class="dlv-hero-inner" style="position:relative; width:100%; height:100vh; height:100svh; overflow:hidden; display:flex; flex-direction:column;">
+
+      
+        <div style="position:absolute; left:calc(4.17% - 195px); top:-150px; width:390px; height:390px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatA 10.8s ease-in-out infinite; animation-delay:0.0s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(96.88% - 180px); top:-105px; width:360px; height:360px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 12.4s ease-in-out infinite; animation-delay:-2.3s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(1.56% - 172.5px); top:585px; width:345px; height:345px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #F6A9D3 0%, #B04D85 60%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 14.0s ease-in-out infinite; animation-delay:-4.6s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(96.88% - 195px); top:555px; width:390px; height:390px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatA 15.6s ease-in-out infinite; animation-delay:-3.9s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(56.25% - 90px); top:-75px; width:180px; height:180px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 17.3s ease-in-out infinite; animation-delay:-6.2s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(48.44% - 127.5px); top:690px; width:255px; height:255px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #F6A9D3 0%, #B04D85 60%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 18.8s ease-in-out infinite; animation-delay:-8.5s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(72.40% - 67.5px); top:375px; width:135px; height:135px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatA 20.8s ease-in-out infinite; animation-delay:-7.8s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(66.67% - 60px); top:285px; width:120px; height:120px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #F6A9D3 0%, #B04D85 60%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 11.3s ease-in-out infinite; animation-delay:-10.1s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(60.94% - 37.5px); top:-15px; width:75px; height:75px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 13.1s ease-in-out infinite; animation-delay:-12.4s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(33.13% - 27px); top:60px; width:54px; height:54px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatA 14.9s ease-in-out infinite; animation-delay:-11.7s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(75.31% - 34.5px); top:90px; width:69px; height:69px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #F6A9D3 0%, #B04D85 60%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 16.4s ease-in-out infinite; animation-delay:-14.0s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(19.27% - 52.5px); top:-45px; width:105px; height:105px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 17.8s ease-in-out infinite; animation-delay:-16.3s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(95.31% - 52.5px); top:270px; width:105px; height:105px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #F6A9D3 0%, #B04D85 60%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatA 19.4s ease-in-out infinite; animation-delay:-15.6s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(20.31% - 67.5px); top:705px; width:135px; height:135px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 20.8s ease-in-out infinite; animation-delay:-17.9s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(103.13% - 60px); top:720px; width:120px; height:120px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #F6A9D3 0%, #B04D85 60%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 11.3s ease-in-out infinite; animation-delay:-20.2s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(68.75% - 30px); top:525px; width:60px; height:60px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatA 13.2s ease-in-out infinite; animation-delay:-19.5s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(3.65% - 37.5px); top:-30px; width:75px; height:75px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #F6A9D3 0%, #B04D85 60%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 14.8s ease-in-out infinite; animation-delay:-21.8s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(54.44% - 34px); top:270px; width:68px; height:68px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #F6A9D3 0%, #B04D85 60%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 16.4s ease-in-out infinite; animation-delay:-24.1s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(99.48% - 37.5px); top:90px; width:75px; height:75px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatA 17.9s ease-in-out infinite; animation-delay:-23.4s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(99.76% - 41.5px); top:450px; width:83px; height:83px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #F6A9D3 0%, #B04D85 60%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 19.5s ease-in-out infinite; animation-delay:-25.7s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(99.48% - 37.5px); top:630px; width:75px; height:75px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 21.2s ease-in-out infinite; animation-delay:-28.0s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(22.92% - 30px); top:15px; width:60px; height:60px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #F6A9D3 0%, #B04D85 60%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatA 11.6s ease-in-out infinite; animation-delay:-27.3s; will-change:transform;"></div>
+      
+        <div style="position:absolute; left:calc(8.33% - 30px); top:-75px; width:60px; height:60px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 13.2s ease-in-out infinite; animation-delay:-29.6s; will-change:transform;"></div>
+      
+
+      <svg style="position:absolute; width:0; height:0;">
+        <filter id="dlv-grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch" result="dlv-noise"></feTurbulence>
+          <feColorMatrix in="dlv-noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0"></feColorMatrix>
+        </filter>
+      </svg>
+      <div style="position:absolute; inset:0; z-index:0; filter:url(#dlv-grain); mix-blend-mode:overlay; opacity:0.28;"></div>
+
+      <div class="dlv-hero-vignette" style="position:absolute; inset:0; z-index:0; background:radial-gradient(60% 75% at 32% 48%, rgba(23,16,18,0.86) 0%, rgba(23,16,18,0.62) 45%, rgba(23,16,18,0.22) 75%, rgba(23,16,18,0) 100%);"></div>
+
+      <!-- Header: solo logo + menú de 3 líneas, sin caja ni fondo propio,
+           flotando directamente sobre las esferas. Las líneas van en blanco,
+           con sombra para que se mantengan legibles sobre el rosa. -->
+      <header class="dlv-header" style="position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; padding:28px 48px 0; flex-shrink:0;">
+        <span class="dlv-logo" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:24px; letter-spacing:0.2px; color:#F6A9D3; text-shadow:0 2px 14px rgba(0,0,0,0.6);">DigiLab</span>
+        <button aria-label="Abrir menú" class="dlv-menu-btn" style="background:transparent; border:none; padding:8px; display:flex; align-items:center; justify-content:center;">
+          <svg width="26" height="18" viewBox="0 0 26 18" fill="none" style="filter:drop-shadow(0 2px 6px rgba(0,0,0,0.55));">
+            <rect x="0" y="0" width="26" height="2.6" rx="1.3" fill="#FFFFFF"></rect>
+            <rect x="0" y="7.7" width="26" height="2.6" rx="1.3" fill="#FFFFFF"></rect>
+            <rect x="0" y="15.4" width="26" height="2.6" rx="1.3" fill="#FFFFFF"></rect>
+          </svg>
+        </button>
+      </header>
+
+      <div class="dlv-hero-content" style="position:relative; z-index:1; padding:0 64px; max-width:660px; margin-top:auto; margin-bottom:auto; flex-shrink:0;">
+        <span class="dlv-hero-eyebrow" style="display:inline-block; background:rgba(206,227,181,0.12); border:1px solid rgba(206,227,181,0.4); border-radius:999px; padding:7px 18px; font-size:13px; font-weight:600; line-height:1.4; text-align:center; color:#CEE3B5; font-family:'IBM Plex Sans', sans-serif;">Laboratorio digital para negocios independientes</span>
+        <h1 class="dlv-hero-h1" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:56px; line-height:1.1; color:#FFFFFF; margin:24px 0 0; text-shadow:0 4px 26px rgba(0,0,0,0.75);">Innovación digital, hecha a tu medida.</h1>
+        <p class="dlv-hero-p" style="margin:24px 0 0; font-size:17px; line-height:1.75; letter-spacing:0.1px; font-weight:400; color:rgba(255,255,255,0.88); max-width:520px; text-shadow:0 2px 14px rgba(0,0,0,0.8);">Somos el laboratorio de ideas donde tu marca cobra vida: diseño, desarrollo y <span style="color:#F6A9D3; font-weight:600;">resultados</span> en cada detalle.</p>
+        <div class="dlv-hero-cta-row" style="display:flex; gap:16px; margin-top:30px; flex-wrap:wrap;">
+          <button class="dlv-btn-primary" style="background:#F6A9D3; color:#2A1620; border:none; border-radius:999px; padding:16px 32px; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:16px;">Cotiza gratis</button>
+          <a href="#portafolio" class="dlv-btn-pistache" style="border:1px solid rgba(206,227,181,0.5); border-radius:999px; padding:16px 32px; font-weight:700; font-size:16px; color:#CEE3B5; display:inline-flex; align-items:center; font-family:'Plus Jakarta Sans', sans-serif;">Ver portafolio</a>
+        </div>
+        <div style="display:flex; gap:10px; margin-top:24px; flex-wrap:wrap; max-width:560px;">
+          
+            <span style="background:rgba(23,16,18,0.55); border:1px solid rgba(206,227,181,0.4); border-radius:999px; padding:7px 16px; font-size:12px; color:#CEE3B5; font-family:'IBM Plex Sans', sans-serif; font-weight:500;">Diseño de imagen</span>
+          
+            <span style="background:rgba(23,16,18,0.55); border:1px solid rgba(206,227,181,0.4); border-radius:999px; padding:7px 16px; font-size:12px; color:#CEE3B5; font-family:'IBM Plex Sans', sans-serif; font-weight:500;">Digitalización</span>
+          
+            <span style="background:rgba(23,16,18,0.55); border:1px solid rgba(206,227,181,0.4); border-radius:999px; padding:7px 16px; font-size:12px; color:#CEE3B5; font-family:'IBM Plex Sans', sans-serif; font-weight:500;">Optimización</span>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Diferenciador -->
+  <section class="dlv-diff-section" style="background:#FFFFFF; padding:96px 64px; min-height:100vh; min-height:100svh; display:flex; flex-direction:column; justify-content:center;">
+    <div style="max-width:1280px; width:100%; margin:0 auto;">
+      <div style="max-width:620px; margin:0 auto 56px; text-align:center;">
+        <h2 class="dlv-section-h2" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; color:#171012; margin:0 0 14px;">Lo que nos hace diferentes</h2>
+        <p style="margin:0; font-size:16px; line-height:1.7; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Te acompañamos de cerca en cada etapa, respaldados por un equipo multidisciplinario listo para resolver lo que tu negocio necesite.</p>
+      </div>
+      <div class="dlv-diff-grid" style="display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:28px;">
+        
+          <div class="dlv-feature-card" style="background:#FBF5F9; border:1px solid #F0E0EC; border-radius:16px; padding:28px 24px; display:flex; flex-direction:column; gap:14px;">
+            <div style="width:42px; height:42px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <h3 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:17px; color:#171012;">Cercanía</h3>
+            <p style="margin:0; font-size:14px; line-height:1.6; color:#63585E; font-family:'IBM Plex Sans', sans-serif;">Contacto directo y constante contigo, en cada etapa del proyecto.</p>
+          </div>
+        
+          <div class="dlv-feature-card" style="background:#FBF5F9; border:1px solid #F0E0EC; border-radius:16px; padding:28px 24px; display:flex; flex-direction:column; gap:14px;">
+            <div style="width:42px; height:42px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <h3 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:17px; color:#171012;">Equipo multidisciplinario</h3>
+            <p style="margin:0; font-size:14px; line-height:1.6; color:#63585E; font-family:'IBM Plex Sans', sans-serif;">Especialistas en diseño, desarrollo y marketing bajo un mismo techo.</p>
+          </div>
+        
+          <div class="dlv-feature-card" style="background:#FBF5F9; border:1px solid #F0E0EC; border-radius:16px; padding:28px 24px; display:flex; flex-direction:column; gap:14px;">
+            <div style="width:42px; height:42px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <h3 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:17px; color:#171012;">Innovación con resultados</h3>
+            <p style="margin:0; font-size:14px; line-height:1.6; color:#63585E; font-family:'IBM Plex Sans', sans-serif;">Creatividad que se traduce en resultados medibles para tu negocio.</p>
+          </div>
+        
+          <div class="dlv-feature-card" style="background:#FBF5F9; border:1px solid #F0E0EC; border-radius:16px; padding:28px 24px; display:flex; flex-direction:column; gap:14px;">
+            <div style="width:42px; height:42px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <h3 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:17px; color:#171012;">Personalización</h3>
+            <p style="margin:0; font-size:14px; line-height:1.6; color:#63585E; font-family:'IBM Plex Sans', sans-serif;">Diseñamos cada solución a la medida exacta de tu marca.</p>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Portafolio destacado, al estilo wiggi.mx: nada de recuadros fijos.
+       Cada caso es una zona de scroll normal (.dlv-grow-zone, exactamente
+       100vh) cuyo propio fondo es SIEMPRE el negro de Digilab (item.prevBg)
+       — es decir, la pantalla arranca en negro sin importar cuál fue el
+       caso anterior. Adentro, texto e imagen viven en columnas separadas
+       (.dlv-pf-row) para que nunca se toquen entre sí: el texto (eyebrow,
+       tag, título, descripción, botones) a la izquierda, desvaneciéndose
+       hacia adentro con el avance del scroll (.dlv-grow-fade), y a la
+       derecha su propia columna (.dlv-pf-image-col) con la tarjeta
+       (.dlv-grow-card, con el color real de ESTE negocio) que nace pequeña
+       y crece — pero SOLO dentro del espacio de su columna, nunca invade
+       el lado del texto. El logo del negocio y su propio juego de esferas
+       glossy (item.caseShapes, teñidas con su color de marca) viven DENTRO
+       de la tarjeta, con opacidad 0 (.dlv-grow-sphere) hasta que el color
+       ya está prácticamente completado — recién entonces aparecen, para no
+       competir con la propia transición de color. Los botones usan blanco
+       neutro, no el rosa de Digilab. El div envolvente conserva el ancla
+       #portafolio. -->
+  <div id="portafolio">
+    
+      <section class="dlv-grow-zone" data-grow-zone style="background:#171012;">
+        <div class="dlv-pf-row">
+          <div class="dlv-pf-text-wrap dlv-grow-fade" style="position:relative; z-index:2; flex:0 0 44%; max-width:44%; box-sizing:border-box; display:flex; flex-direction:column; justify-content:center; padding:89px 24px 89px 64px;">
+            <span style="font-size:13px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.75); font-family:'IBM Plex Sans', sans-serif;">Portafolio &middot; Caso 1 de 3</span>
+            <div style="margin-top:21px;">
+              <span style="display:inline-block; background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.3); border-radius:999px; padding:7px 18px; font-size:13px; font-weight:600; color:#FFFFFF; font-family:'IBM Plex Sans', sans-serif;">Restaurantes / bares</span>
+            </div>
+            <h2 class="dlv-pf-slide-title" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; line-height:1.1; color:#FFFFFF; margin:21px 0 0; text-shadow:0 4px 26px rgba(0,0,0,0.55);">Ceiba 25 Sport Bar Roof</h2>
+            <p style="margin:21px 0 0; font-size:17px; line-height:1.75; color:rgba(255,255,255,0.9); text-shadow:0 2px 14px rgba(0,0,0,0.55);">Bar deportivo en azotea, con ambiente social, pantallas para cada partido y coctelería de autor.</p>
+            <div style="display:flex; align-items:center; gap:21px; margin-top:34px; flex-wrap:wrap;">
+              <a href="ceiba-25.html" class="dlv-pf-cta" style="border:none; border-radius:999px; padding:16px 32px; font-weight:700; font-size:16px; display:inline-flex; align-items:center; font-family:'Plus Jakarta Sans', sans-serif; transition:transform .15s ease, box-shadow .15s ease;">Leer más &rarr;</a>
+              <a href="#portafolio" class="dlv-link" style="font-size:14px; font-weight:700; color:#FFFFFF; font-family:'IBM Plex Sans', sans-serif;">Ver todo el portafolio</a>
+            </div>
+          </div>
+
+          <div class="dlv-pf-image-col" style="padding:55px 55px 55px 0; box-sizing:border-box;">
+            <div class="dlv-grow-card" data-grow-card style="background:linear-gradient(135deg, #2F6B4F 0%, #17402C 100%);">
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(1.84% - 116.5px); top:-110px; width:233px; height:233px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #acc4b9 0%, #2F6B4F 45%, #1a3b2b 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 11.8s ease-in-out infinite; animation-delay:0.0s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(0.14% - 72px); top:610px; width:144px; height:144px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #2F6B4F 0%, #1a3b2b 60%, #1a3b2b 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 13.9s ease-in-out infinite; animation-delay:-2.7s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(100.45% - 116.5px); top:-90px; width:233px; height:233px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #2F6B4F 0%, #1a3b2b 60%, #1a3b2b 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatA 15.4s ease-in-out infinite; animation-delay:-5.4s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(99.44% - 72px); top:590px; width:144px; height:144px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #acc4b9 0%, #2F6B4F 45%, #1a3b2b 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 17.5s ease-in-out infinite; animation-delay:-8.1s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(5.87% - 44.5px); top:760px; width:89px; height:89px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #acc4b9 0%, #2F6B4F 45%, #1a3b2b 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 19.7s ease-in-out infinite; animation-delay:-6.8s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(91.49% - 27.5px); top:760px; width:55px; height:55px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #2F6B4F 0%, #1a3b2b 60%, #1a3b2b 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatA 12.7s ease-in-out infinite; animation-delay:-9.5s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(1.01% - 44.5px); top:320px; width:89px; height:89px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #2F6B4F 0%, #1a3b2b 60%, #1a3b2b 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 14.3s ease-in-out infinite; animation-delay:-12.2s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(98.44% - 27.5px); top:340px; width:55px; height:55px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #acc4b9 0%, #2F6B4F 45%, #1a3b2b 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 16.3s ease-in-out infinite; animation-delay:-14.9s; will-change:transform;"></div>
+              
+              <div style="position:absolute; inset:0; z-index:0; filter:url(#dlv-grain); mix-blend-mode:overlay; opacity:0.28; pointer-events:none;"></div>
+              <div style="position:absolute; inset:0; z-index:1; display:flex; align-items:center; justify-content:center;">
+                <div style="width:172px; height:172px; border-radius:50%; background:rgba(255,255,255,0.95); box-shadow:0 12px 30px rgba(0,0,0,0.3); display:flex; align-items:center; justify-content:center; padding:15px; box-sizing:border-box;">
+                  <img src="assets/logo-ceiba-25.webp" alt="Ceiba 25 Sport Bar Roof" style="max-width:100%; max-height:100%; object-fit:contain;">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+      <section class="dlv-grow-zone" data-grow-zone style="background:#171012;">
+        <div class="dlv-pf-row">
+          <div class="dlv-pf-text-wrap dlv-grow-fade" style="position:relative; z-index:2; flex:0 0 44%; max-width:44%; box-sizing:border-box; display:flex; flex-direction:column; justify-content:center; padding:89px 24px 89px 64px;">
+            <span style="font-size:13px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.75); font-family:'IBM Plex Sans', sans-serif;">Portafolio &middot; Caso 2 de 3</span>
+            <div style="margin-top:21px;">
+              <span style="display:inline-block; background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.3); border-radius:999px; padding:7px 18px; font-size:13px; font-weight:600; color:#FFFFFF; font-family:'IBM Plex Sans', sans-serif;">Restaurantes / bares</span>
+            </div>
+            <h2 class="dlv-pf-slide-title" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; line-height:1.1; color:#FFFFFF; margin:21px 0 0; text-shadow:0 4px 26px rgba(0,0,0,0.55);">Súper Taquería "El Kuñado"</h2>
+            <p style="margin:21px 0 0; font-size:17px; line-height:1.75; color:rgba(255,255,255,0.9); text-shadow:0 2px 14px rgba(0,0,0,0.55);">Taquería de barrio con recetas caseras, al carbón y con el sazón tradicional en cada taco.</p>
+            <div style="display:flex; align-items:center; gap:21px; margin-top:34px; flex-wrap:wrap;">
+              <a href="el-kunado.html" class="dlv-pf-cta" style="border:none; border-radius:999px; padding:16px 32px; font-weight:700; font-size:16px; display:inline-flex; align-items:center; font-family:'Plus Jakarta Sans', sans-serif; transition:transform .15s ease, box-shadow .15s ease;">Leer más &rarr;</a>
+              <a href="#portafolio" class="dlv-link" style="font-size:14px; font-weight:700; color:#FFFFFF; font-family:'IBM Plex Sans', sans-serif;">Ver todo el portafolio</a>
+            </div>
+          </div>
+
+          <div class="dlv-pf-image-col" style="padding:55px 55px 55px 0; box-sizing:border-box;">
+            <div class="dlv-grow-card" data-grow-card style="background:linear-gradient(135deg, #C1272D 0%, #7A1418 100%);">
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(1.84% - 116.5px); top:-110px; width:233px; height:233px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #e6a9ab 0%, #C1272D 45%, #6a1519 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 11.8s ease-in-out infinite; animation-delay:0.0s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(0.14% - 72px); top:610px; width:144px; height:144px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #C1272D 0%, #6a1519 60%, #6a1519 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 13.9s ease-in-out infinite; animation-delay:-2.7s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(100.45% - 116.5px); top:-90px; width:233px; height:233px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #C1272D 0%, #6a1519 60%, #6a1519 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatA 15.4s ease-in-out infinite; animation-delay:-5.4s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(99.44% - 72px); top:590px; width:144px; height:144px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #e6a9ab 0%, #C1272D 45%, #6a1519 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 17.5s ease-in-out infinite; animation-delay:-8.1s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(5.87% - 44.5px); top:760px; width:89px; height:89px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #e6a9ab 0%, #C1272D 45%, #6a1519 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 19.7s ease-in-out infinite; animation-delay:-6.8s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(91.49% - 27.5px); top:760px; width:55px; height:55px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #C1272D 0%, #6a1519 60%, #6a1519 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatA 12.7s ease-in-out infinite; animation-delay:-9.5s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(1.01% - 44.5px); top:320px; width:89px; height:89px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #C1272D 0%, #6a1519 60%, #6a1519 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 14.3s ease-in-out infinite; animation-delay:-12.2s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(98.44% - 27.5px); top:340px; width:55px; height:55px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #e6a9ab 0%, #C1272D 45%, #6a1519 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 16.3s ease-in-out infinite; animation-delay:-14.9s; will-change:transform;"></div>
+              
+              <div style="position:absolute; inset:0; z-index:0; filter:url(#dlv-grain); mix-blend-mode:overlay; opacity:0.28; pointer-events:none;"></div>
+              <div style="position:absolute; inset:0; z-index:1; display:flex; align-items:center; justify-content:center;">
+                <div style="width:172px; height:172px; border-radius:50%; background:rgba(255,255,255,0.95); box-shadow:0 12px 30px rgba(0,0,0,0.3); display:flex; align-items:center; justify-content:center; padding:15px; box-sizing:border-box;">
+                  <img src="assets/logo-el-kunado.webp" alt="Súper Taquería "El Kuñado"" style="max-width:100%; max-height:100%; object-fit:contain;">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+      <section class="dlv-grow-zone" data-grow-zone style="background:#171012;">
+        <div class="dlv-pf-row">
+          <div class="dlv-pf-text-wrap dlv-grow-fade" style="position:relative; z-index:2; flex:0 0 44%; max-width:44%; box-sizing:border-box; display:flex; flex-direction:column; justify-content:center; padding:89px 24px 89px 64px;">
+            <span style="font-size:13px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.75); font-family:'IBM Plex Sans', sans-serif;">Portafolio &middot; Caso 3 de 3</span>
+            <div style="margin-top:21px;">
+              <span style="display:inline-block; background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.3); border-radius:999px; padding:7px 18px; font-size:13px; font-weight:600; color:#FFFFFF; font-family:'IBM Plex Sans', sans-serif;">Salud y bienestar</span>
+            </div>
+            <h2 class="dlv-pf-slide-title" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; line-height:1.1; color:#FFFFFF; margin:21px 0 0; text-shadow:0 4px 26px rgba(0,0,0,0.55);">Cosmiatra Alexis Lima</h2>
+            <p style="margin:21px 0 0; font-size:17px; line-height:1.75; color:rgba(255,255,255,0.9); text-shadow:0 2px 14px rgba(0,0,0,0.55);">Consultorio de cosmiatría en Puebla, especializado en tratamientos faciales y corporales.</p>
+            <div style="display:flex; align-items:center; gap:21px; margin-top:34px; flex-wrap:wrap;">
+              <a href="cosmiatra-alexis-lima.html" class="dlv-pf-cta" style="border:none; border-radius:999px; padding:16px 32px; font-weight:700; font-size:16px; display:inline-flex; align-items:center; font-family:'Plus Jakarta Sans', sans-serif; transition:transform .15s ease, box-shadow .15s ease;">Leer más &rarr;</a>
+              <a href="#portafolio" class="dlv-link" style="font-size:14px; font-weight:700; color:#FFFFFF; font-family:'IBM Plex Sans', sans-serif;">Ver todo el portafolio</a>
+            </div>
+          </div>
+
+          <div class="dlv-pf-image-col" style="padding:55px 55px 55px 0; box-sizing:border-box;">
+            <div class="dlv-grow-card" data-grow-card style="background:linear-gradient(135deg, #5D7299 0%, #2A3547 100%);">
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(1.84% - 116.5px); top:-110px; width:233px; height:233px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #bec7d6 0%, #5D7299 45%, #333f54 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 11.8s ease-in-out infinite; animation-delay:0.0s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(0.14% - 72px); top:610px; width:144px; height:144px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #5D7299 0%, #333f54 60%, #333f54 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 13.9s ease-in-out infinite; animation-delay:-2.7s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(100.45% - 116.5px); top:-90px; width:233px; height:233px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #5D7299 0%, #333f54 60%, #333f54 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatA 15.4s ease-in-out infinite; animation-delay:-5.4s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(99.44% - 72px); top:590px; width:144px; height:144px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #bec7d6 0%, #5D7299 45%, #333f54 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 17.5s ease-in-out infinite; animation-delay:-8.1s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(5.87% - 44.5px); top:760px; width:89px; height:89px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #bec7d6 0%, #5D7299 45%, #333f54 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 19.7s ease-in-out infinite; animation-delay:-6.8s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(91.49% - 27.5px); top:760px; width:55px; height:55px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #5D7299 0%, #333f54 60%, #333f54 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatA 12.7s ease-in-out infinite; animation-delay:-9.5s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(1.01% - 44.5px); top:320px; width:89px; height:89px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #5D7299 0%, #333f54 60%, #333f54 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 14.3s ease-in-out infinite; animation-delay:-12.2s; will-change:transform;"></div>
+              
+                <div class="dlv-grow-sphere" style="position:absolute; left:calc(98.44% - 27.5px); top:340px; width:55px; height:55px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #bec7d6 0%, #5D7299 45%, #333f54 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 16.3s ease-in-out infinite; animation-delay:-14.9s; will-change:transform;"></div>
+              
+              <div style="position:absolute; inset:0; z-index:0; filter:url(#dlv-grain); mix-blend-mode:overlay; opacity:0.28; pointer-events:none;"></div>
+              <div style="position:absolute; inset:0; z-index:1; display:flex; align-items:center; justify-content:center;">
+                <div style="width:172px; height:172px; border-radius:50%; background:rgba(255,255,255,0.95); box-shadow:0 12px 30px rgba(0,0,0,0.3); display:flex; align-items:center; justify-content:center; padding:23px; box-sizing:border-box;">
+                  <img src="assets/logo-cosmiatra-alexis-lima.webp" alt="Cosmiatra Alexis Lima" style="max-width:100%; max-height:100%; object-fit:contain;">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+  </div>
+
+  <!-- Contáctanos: mismo mecanismo de scroll normal + tarjeta que crece
+       (.dlv-grow-zone/.dlv-grow-card) que el Portafolio, con el mismo
+       negro de Digilab como base de la zona, y encima crece una tarjeta
+       (también negra, así que el "crecimiento" se nota sobre todo en la
+       sombra y en el texto/esferas que se revelan) con el contenido de
+       Contáctanos — mismas esferas glossy y grano de siempre (vía
+       [{'left': -90, 'top': -110, 'w': 233, 'h': 233, 'fill': 'radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%)', 'dur': '11.8', 'delay': '0.0', 'anim': 'dlvFloatB', 'leftCalc': 'calc(1.84% - 116.5px)'}, {'left': -70, 'top': 610, 'w': 144, 'h': 144, 'fill': 'radial-gradient(circle at 38% 30%, #F6A9D3 0%, #B04D85 60%, #B04D85 100%)', 'dur': '13.9', 'delay': '-2.7', 'anim': 'dlvFloatC', 'leftCalc': 'calc(0.14% - 72px)'}, {'left': 1330, 'top': -90, 'w': 233, 'h': 233, 'fill': 'radial-gradient(circle at 38% 30%, #F6A9D3 0%, #B04D85 60%, #B04D85 100%)', 'dur': '15.4', 'delay': '-5.4', 'anim': 'dlvFloatA', 'leftCalc': 'calc(100.45% - 116.5px)'}, {'left': 1360, 'top': 590, 'w': 144, 'h': 144, 'fill': 'radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%)', 'dur': '17.5', 'delay': '-8.1', 'anim': 'dlvFloatB', 'leftCalc': 'calc(99.44% - 72px)'}, {'left': 40, 'top': 760, 'w': 89, 'h': 89, 'fill': 'radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%)', 'dur': '19.7', 'delay': '-6.8', 'anim': 'dlvFloatC', 'leftCalc': 'calc(5.87% - 44.5px)'}, {'left': 1290, 'top': 760, 'w': 55, 'h': 55, 'fill': 'radial-gradient(circle at 38% 30%, #F6A9D3 0%, #B04D85 60%, #B04D85 100%)', 'dur': '12.7', 'delay': '-9.5', 'anim': 'dlvFloatA', 'leftCalc': 'calc(91.49% - 27.5px)'}, {'left': -30, 'top': 320, 'w': 89, 'h': 89, 'fill': 'radial-gradient(circle at 38% 30%, #F6A9D3 0%, #B04D85 60%, #B04D85 100%)', 'dur': '14.3', 'delay': '-12.2', 'anim': 'dlvFloatB', 'leftCalc': 'calc(1.01% - 44.5px)'}, {'left': 1390, 'top': 340, 'w': 55, 'h': 55, 'fill': 'radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%)', 'dur': '16.3', 'delay': '-14.9', 'anim': 'dlvFloatC', 'leftCalc': 'calc(98.44% - 27.5px)'}]), ahora dentro de la tarjeta y visibles solo una vez
+       completado el avance. Proporciones basadas en Fibonacci: título
+       55px, contenido limitado a 610px, espacios internos (13, 21, 34, 55,
+       89px) y tamaño de las esferas decorativas (55, 89, 144, 233px). -->
+  <section id="contactanos" class="dlv-grow-zone" data-grow-zone style="background:#171012;">
+    <div class="dlv-grow-card" data-grow-card style="background:#171012;">
+      
+        <div class="dlv-grow-sphere" style="position:absolute; left:calc(1.84% - 116.5px); top:-110px; width:233px; height:233px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 11.8s ease-in-out infinite; animation-delay:0.0s; will-change:transform;"></div>
+      
+        <div class="dlv-grow-sphere" style="position:absolute; left:calc(0.14% - 72px); top:610px; width:144px; height:144px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #F6A9D3 0%, #B04D85 60%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 13.9s ease-in-out infinite; animation-delay:-2.7s; will-change:transform;"></div>
+      
+        <div class="dlv-grow-sphere" style="position:absolute; left:calc(100.45% - 116.5px); top:-90px; width:233px; height:233px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #F6A9D3 0%, #B04D85 60%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatA 15.4s ease-in-out infinite; animation-delay:-5.4s; will-change:transform;"></div>
+      
+        <div class="dlv-grow-sphere" style="position:absolute; left:calc(99.44% - 72px); top:590px; width:144px; height:144px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 17.5s ease-in-out infinite; animation-delay:-8.1s; will-change:transform;"></div>
+      
+        <div class="dlv-grow-sphere" style="position:absolute; left:calc(5.87% - 44.5px); top:760px; width:89px; height:89px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 19.7s ease-in-out infinite; animation-delay:-6.8s; will-change:transform;"></div>
+      
+        <div class="dlv-grow-sphere" style="position:absolute; left:calc(91.49% - 27.5px); top:760px; width:55px; height:55px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #F6A9D3 0%, #B04D85 60%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatA 12.7s ease-in-out infinite; animation-delay:-9.5s; will-change:transform;"></div>
+      
+        <div class="dlv-grow-sphere" style="position:absolute; left:calc(1.01% - 44.5px); top:320px; width:89px; height:89px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #F6A9D3 0%, #B04D85 60%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 14.3s ease-in-out infinite; animation-delay:-12.2s; will-change:transform;"></div>
+      
+        <div class="dlv-grow-sphere" style="position:absolute; left:calc(98.44% - 27.5px); top:340px; width:55px; height:55px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatC 16.3s ease-in-out infinite; animation-delay:-14.9s; will-change:transform;"></div>
+      
+      <div style="position:absolute; inset:0; z-index:0; filter:url(#dlv-grain); mix-blend-mode:overlay; opacity:0.28;"></div>
+
+      <div class="dlv-grow-fade dlv-contact-section" style="max-width:610px; width:100%; margin:0 auto; position:relative; z-index:1; text-align:center; height:100%; display:flex; flex-direction:column; justify-content:center; padding:89px 64px;">
+        <span style="display:inline-block; background:rgba(206,227,181,0.12); border:1px solid rgba(206,227,181,0.4); border-radius:999px; padding:7px 18px; font-size:13px; font-weight:600; color:#CEE3B5; font-family:'IBM Plex Sans', sans-serif;">Hablemos</span>
+        <h2 class="dlv-contact-h2" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; line-height:1.1; color:#FFFFFF; margin:21px 0 0; text-shadow:0 4px 26px rgba(0,0,0,0.75);">¡Es momento de llevar tu marca al siguiente nivel!</h2>
+        <p style="margin:21px auto 0; font-size:16px; line-height:1.75; color:rgba(255,255,255,0.85); font-family:'IBM Plex Sans', sans-serif; max-width:480px; text-shadow:0 2px 14px rgba(0,0,0,0.8);">Cuéntanos sobre tu negocio y te preparamos una propuesta a tu medida, sin costo y sin compromiso.</p>
+        <div style="display:flex; gap:13px; margin-top:34px; justify-content:center; flex-wrap:wrap;">
+          <a href="contacto.html" class="dlv-btn-primary" style="background:#F6A9D3; color:#2A1620; border:none; border-radius:999px; padding:16px 32px; font-weight:700; font-size:16px; display:inline-flex; align-items:center; font-family:'Plus Jakarta Sans', sans-serif;">Hablemos de tu proyecto</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer / Contacto -->
+  <footer id="contacto" class="dlv-footer" style="background:#0E0A0B; padding:64px 64px 40px; position:relative; border-top:1px solid rgba(255,255,255,0.06);">
+    <div class="dlv-footer-grid" style="max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px;">
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <a href="index.html" aria-label="Ir al inicio" style="text-decoration:none; display:inline-flex; width:fit-content;">
+          <span style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:22px; color:#F6A9D3;">DigiLab</span>
+        </a>
+        <p style="margin:0; font-size:14px; line-height:1.7; color:rgba(255,255,255,0.6); max-width:320px; font-family:'IBM Plex Sans', sans-serif;">Llevamos negocios independientes al siguiente nivel: diseño de marca, digitalización y acompañamiento continuo.</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <span style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.4px; color:rgba(255,255,255,0.4); font-family:'IBM Plex Sans', sans-serif;">Navegación</span>
+        
+          <a href="#" class="dlv-footer-nav-link" style="font-size:14px; color:rgba(255,255,255,0.75); font-family:'IBM Plex Sans', sans-serif;">Servicios</a>
+        
+          <a href="#" class="dlv-footer-nav-link" style="font-size:14px; color:rgba(255,255,255,0.75); font-family:'IBM Plex Sans', sans-serif;">Cotizador</a>
+        
+          <a href="#" class="dlv-footer-nav-link" style="font-size:14px; color:rgba(255,255,255,0.75); font-family:'IBM Plex Sans', sans-serif;">Portafolio</a>
+        
+          <a href="#" class="dlv-footer-nav-link" style="font-size:14px; color:rgba(255,255,255,0.75); font-family:'IBM Plex Sans', sans-serif;">Nosotros</a>
+        
+          <a href="#" class="dlv-footer-nav-link" style="font-size:14px; color:rgba(255,255,255,0.75); font-family:'IBM Plex Sans', sans-serif;">Contacto</a>
+        
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <span style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.4px; color:rgba(255,255,255,0.4); font-family:'IBM Plex Sans', sans-serif;">Contacto</span>
+        <a href="https://wa.me/[NUMERO DE WHATSAPP DE DIGILAB]" class="dlv-footer-link" style="display:inline-flex; align-items:center; gap:8px; font-size:14px; color:rgba(255,255,255,0.85); font-weight:600; font-family:'IBM Plex Sans', sans-serif;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.16c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.12.11-1.8-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.8-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.27-.29.58-.36.78-.36.2 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.14.07.14.11.31.02.5-.09.19-.14.31-.27.47-.14.16-.28.36-.4.48-.14.13-.28.28-.12.55.16.27.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.2 1.37.27.14.43.12.59-.07.16-.19.68-.79.86-1.06.18-.27.36-.22.6-.13.24.09 1.55.73 1.81.86.27.14.44.2.5.31.06.11.06.65-.18 1.32z"/></svg>
+          [NUMERO DE WHATSAPP DE DIGILAB]
+        </a>
+        <a href="mailto:[correo@digilab.mx]" class="dlv-footer-link" style="font-size:14px; color:rgba(255,255,255,0.75); font-family:'IBM Plex Sans', sans-serif;">[correo@digilab.mx]</a>
+      </div>
+    </div>
+    <div style="max-width:1280px; margin:44px auto 0; padding-top:24px; border-top:1px solid rgba(255,255,255,0.08); font-size:12px; color:rgba(255,255,255,0.35); font-family:'IBM Plex Sans', sans-serif;">
+      &copy; 2026 DigiLab. Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <!-- Botón flotante de WhatsApp -->
+  <a href="https://wa.me/[NUMERO DE WHATSAPP DE DIGILAB]" aria-label="Escribir por WhatsApp" class="dlv-wa-float" style="position:fixed; right:28px; bottom:28px; width:56px; height:56px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 20px rgba(0,0,0,0.35); z-index:5;">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.16c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.12.11-1.8-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.8-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.27-.29.58-.36.78-.36.2 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.14.07.14.11.31.02.5-.09.19-.14.31-.27.47-.14.16-.28.36-.4.48-.14.13-.28.28-.12.55.16.27.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.2 1.37.27.14.43.12.59-.07.16-.19.68-.79.86-1.06.18-.27.36-.22.6-.13.24.09 1.55.73 1.81.86.27.14.44.2.5.31.06.11.06.65-.18 1.32z"/></svg>
+  </a>
+
+</div>
+
+<script>
+(function () {
+  function update() {
+    var zones = document.querySelectorAll("[data-grow-zone]");
+    var vh = window.innerHeight || document.documentElement.clientHeight || 900;
+    for (var i = 0; i < zones.length; i++) {
+      var zone = zones[i];
+      var rect = zone.getBoundingClientRect();
+      var p = (vh - rect.top) / vh;
+      if (p < 0) p = 0;
+      if (p > 1) p = 1;
+      zone.style.setProperty("--p", p.toFixed(4));
+    }
+  }
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () {
+      update();
+      ticking = false;
+    });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  document.addEventListener("DOMContentLoaded", update);
+  window.addEventListener("load", update);
+  update();
+  setTimeout(update, 60);
+  setTimeout(update, 300);
+  setTimeout(update, 800);
+})();
+</script>
+</body>
+</html>
