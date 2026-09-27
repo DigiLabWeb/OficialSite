@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Contacto | DigiLab</title>
-<meta name="description" content="Cuéntanos sobre tu proyecto y te escribimos por WhatsApp con una propuesta a tu medida.">
+<title>Servicios | DigiLab</title>
+<meta name="description" content="Un plan a la medida de tu negocio: Esencial, Integral o Full, más extras.">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&family=IBM+Plex+Sans:wght@400;500&display=swap">
 <style>
 
@@ -25,18 +25,14 @@
     .dlv-back-link { transition: opacity .15s ease; }
     .dlv-back-link:hover { opacity: 0.7; }
 
-    /* Formulario como canal principal, con la misma tarjeta translúcida que
-       el resto del sitio (fondo translúcido, borde sutil, esquinas 21px).
-       Debajo, una tarjeta secundaria del mismo lenguaje visual para quien
-       prefiere saltarse el formulario e ir directo a WhatsApp. */
-    .dlv-form-field input, .dlv-form-field textarea { transition: border-color .15s ease, background-color .15s ease; }
-    .dlv-form-field input:focus, .dlv-form-field textarea:focus { outline: none; border-color: #F6A9D3 !important; background-color: rgba(255,255,255,0.03) !important; }
-    .dlv-form-submit { transition: transform .15s ease, box-shadow .15s ease; }
-    .dlv-form-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(246,169,211,0.4); }
+    .dlv-tier-card { transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+    .dlv-tier-card:hover { transform: translateY(-6px); box-shadow: 0 18px 34px rgba(0,0,0,0.1); }
 
-    .dlv-contact-opt { transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background-color .18s ease; }
-    .dlv-contact-opt:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,0.35); }
-    .dlv-contact-opt-wa:hover { border-color: rgba(37,211,102,0.6); background-color: rgba(255,255,255,0.05); }
+    .dlv-extra-chip { transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
+    .dlv-extra-chip:hover { transform: translateY(-2px); border-color: #F6A9D3; }
+
+    .dlv-btn-primary { transition: transform .15s ease, box-shadow .15s ease; }
+    .dlv-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(246,169,211,0.4); }
 
     .dlv-footer-link { transition: color .15s ease; }
     .dlv-footer-link:hover { color: #F6A9D3; }
@@ -50,8 +46,10 @@
     @media (max-width: 1024px) {
       .dlv-header { padding: 22px 32px 0 !important; }
       .dlv-logo { font-size: 22px !important; }
-      .dlv-contact-section { padding: 72px 32px !important; }
-      .dlv-contact-h1 { font-size: 40px !important; }
+      .dlv-hero-section { padding: 55px 32px 89px !important; }
+      .dlv-hero-h1 { font-size: 38px !important; }
+      .dlv-section { padding: 72px 32px !important; }
+      .dlv-tier-grid { grid-template-columns: 1fr !important; }
       .dlv-footer { padding: 56px 32px 32px !important; }
       .dlv-footer-grid { grid-template-columns: 1fr 1fr !important; row-gap: 32px !important; }
     }
@@ -59,10 +57,9 @@
     @media (max-width: 640px) {
       .dlv-header { padding: 18px 20px 0 !important; }
       .dlv-logo { font-size: 20px !important; }
-      .dlv-contact-section { padding: 56px 20px !important; }
-      .dlv-contact-h1 { font-size: 30px !important; }
-      .dlv-form-row { grid-template-columns: 1fr !important; }
-      .dlv-contact-form-wrap form { padding: 26px !important; }
+      .dlv-hero-section { padding: 40px 20px 64px !important; }
+      .dlv-hero-h1 { font-size: 30px !important; }
+      .dlv-section { padding: 56px 20px !important; }
       .dlv-footer { padding: 48px 20px 28px !important; }
       .dlv-footer-grid { grid-template-columns: 1fr !important; row-gap: 28px !important; }
       .dlv-wa-float { width: 48px !important; height: 48px !important; right: 16px !important; bottom: 16px !important; }
@@ -73,11 +70,11 @@
 <body>
 <div style="width:100%; min-height:100vh; background:#171012; font-family:'IBM Plex Sans', system-ui, sans-serif; position:relative;">
 
-  <!-- Contacto: mismas esferas "bookend" de Contáctanos/hero, para que la
-       página se sienta parte del mismo sitio y no un formulario genérico
-       aparte. En vez de saltar directo a WhatsApp, aquí la persona elige
-       el canal — WhatsApp o correo — con el mismo peso visual para ambos. -->
-  <section style="position:relative; overflow:hidden; background:#171012; min-height:100vh; min-height:100svh; display:flex; flex-direction:column;">
+  <!-- Hero: mismas esferas "bookend" que el resto del sitio, para que esta
+       página se sienta parte del mismo lenguaje visual. No es una pantalla
+       completa (100vh) como Inicio, sino un hero corto -- esta página tiene
+       más contenido debajo (los tres niveles y los extras). -->
+  <section class="dlv-hero-section" style="position:relative; overflow:hidden; background:#171012; padding:89px 64px 144px;">
     
       <div style="position:absolute; left:calc(1.84% - 116.5px); top:-110px; width:233px; height:233px; border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFD3EA 0%, #F6A9D3 45%, #B04D85 100%); box-shadow:inset -10px -12px 26px rgba(0,0,0,0.4), inset 6px 6px 14px rgba(255,255,255,0.08); z-index:0; animation:dlvFloatB 11.8s ease-in-out infinite; animation-delay:0.0s; will-change:transform;"></div>
     
@@ -103,9 +100,9 @@
       </filter>
     </svg>
     <div style="position:absolute; inset:0; z-index:0; filter:url(#dlv-grain); mix-blend-mode:overlay; opacity:0.28;"></div>
-    <div style="position:absolute; inset:0; z-index:0; background:radial-gradient(60% 75% at 50% 34%, rgba(23,16,18,0.86) 0%, rgba(23,16,18,0.62) 45%, rgba(23,16,18,0.22) 75%, rgba(23,16,18,0) 100%);"></div>
+    <div style="position:absolute; inset:0; z-index:0; background:radial-gradient(60% 75% at 50% 20%, rgba(23,16,18,0.86) 0%, rgba(23,16,18,0.62) 45%, rgba(23,16,18,0.22) 75%, rgba(23,16,18,0) 100%);"></div>
 
-    <header class="dlv-header" style="position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; padding:28px 48px 0; flex-shrink:0;">
+    <header class="dlv-header" style="position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; margin:-89px -64px 0; padding:28px 64px 0;">
       <a href="index.html" aria-label="Ir al inicio" style="text-decoration:none;">
         <span class="dlv-logo" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:24px; letter-spacing:0.2px; color:#F6A9D3; text-shadow:0 2px 14px rgba(0,0,0,0.6);">DigiLab</span>
       </a>
@@ -131,58 +128,133 @@
       </div>
     </header>
 
-    <div class="dlv-contact-section" style="position:relative; z-index:1; padding:55px 64px 89px; max-width:860px; margin-top:auto; margin-bottom:auto; flex-shrink:0; width:100%;">
+    <div style="position:relative; z-index:1; max-width:720px;">
       <a href="index.html" class="dlv-back-link" style="display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:rgba(255,255,255,0.75); font-family:'IBM Plex Sans', sans-serif;">&larr; Volver al inicio</a>
-      <span style="display:inline-block; margin-top:21px; background:rgba(206,227,181,0.12); border:1px solid rgba(206,227,181,0.4); border-radius:999px; padding:7px 18px; font-size:13px; font-weight:600; color:#CEE3B5; font-family:'IBM Plex Sans', sans-serif;">Contacto</span>
-      <h1 class="dlv-contact-h1" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:48px; line-height:1.1; color:#FFFFFF; margin:21px 0 0; text-shadow:0 4px 26px rgba(0,0,0,0.75);">Cuéntanos sobre tu proyecto</h1>
-      <p style="margin:21px 0 0; font-size:17px; line-height:1.75; color:rgba(255,255,255,0.85); max-width:520px; text-shadow:0 2px 14px rgba(0,0,0,0.8);">Completa el formulario y te escribimos por WhatsApp con una propuesta a tu medida — o si prefieres, escríbenos directo.</p>
+      <span style="display:inline-block; margin-top:21px; background:rgba(206,227,181,0.12); border:1px solid rgba(206,227,181,0.4); border-radius:999px; padding:7px 18px; font-size:13px; font-weight:600; color:#CEE3B5; font-family:'IBM Plex Sans', sans-serif;">Servicios</span>
+      <h1 class="dlv-hero-h1" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:48px; line-height:1.1; color:#FFFFFF; margin:21px 0 0; text-shadow:0 4px 26px rgba(0,0,0,0.75);">Un plan a la medida de tu negocio, no una plantilla genérica.</h1>
+      <p style="margin:21px 0 0; font-size:17px; line-height:1.75; color:rgba(255,255,255,0.85); text-shadow:0 2px 14px rgba(0,0,0,0.8);">No vendemos paquetes cerrados: el nivel que te conviene depende de dónde está hoy tu marca. Estos son los tres puntos de partida más comunes.</p>
+    </div>
+  </section>
 
-      <div class="dlv-contact-form-wrap" style="margin-top:55px; max-width:720px;">
-        <form id="dlv-contact-form" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.12); border-radius:21px; padding:34px; display:flex; flex-direction:column; gap:21px;">
-          <div class="dlv-form-row" style="display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px;">
-            <div class="dlv-form-field" style="display:flex; flex-direction:column; gap:8px;">
-              <label for="dlv-f-nombre" style="font-size:13px; font-weight:600; color:rgba(255,255,255,0.75); font-family:'IBM Plex Sans', sans-serif;">Nombre</label>
-              <input id="dlv-f-nombre" name="nombre" type="text" required placeholder="Tu nombre" style="background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.18); border-radius:10px; padding:12px 14px; font-size:14px; color:#FFFFFF; font-family:'IBM Plex Sans', sans-serif;">
+  <!-- Los tres niveles: reflejan el frente de trabajo real que necesita
+       cada negocio (qué tan definida está ya su marca), no solo cuántas
+       funciones digitales se activan. Mismo lenguaje visual que las
+       tarjetas de "Lo que nos hace diferentes" en Inicio. -->
+  <section class="dlv-section" style="background:#FFFFFF; padding:96px 64px;">
+    <div style="max-width:1280px; width:100%; margin:0 auto;">
+      <div class="dlv-tier-grid" style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:28px;">
+        
+          <div class="dlv-tier-card" style="background:#FBF5F9; border:1px solid #F0E0EC; border-radius:21px; padding:34px 28px; display:flex; flex-direction:column; gap:21px;">
+            <div>
+              <span style="display:inline-block; background:rgba(242,169,211,0.16); border-radius:999px; padding:6px 16px; font-size:12px; font-weight:700; letter-spacing:0.3px; text-transform:uppercase; color:#B04D85; font-family:'IBM Plex Sans', sans-serif;">Esencial</span>
+              <h3 style="margin:14px 0 0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; line-height:1.3; color:#171012;">Ya tienes tu marca definida</h3>
+              <p style="margin:10px 0 0; font-size:14px; line-height:1.65; color:#63585E; font-family:'IBM Plex Sans', sans-serif;">Ideal si ya cuentas con una identidad y materiales propios: llevamos todo eso a una experiencia digital lista para usarse.</p>
             </div>
-            <div class="dlv-form-field" style="display:flex; flex-direction:column; gap:8px;">
-              <label for="dlv-f-numero" style="font-size:13px; font-weight:600; color:rgba(255,255,255,0.75); font-family:'IBM Plex Sans', sans-serif;">Número (WhatsApp)</label>
-              <input id="dlv-f-numero" name="numero" type="tel" required placeholder="Tu número" style="background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.18); border-radius:10px; padding:12px 14px; font-size:14px; color:#FFFFFF; font-family:'IBM Plex Sans', sans-serif;">
+            <div style="display:flex; flex-direction:column; gap:10px; margin-top:auto;">
+              
+                <div style="display:flex; align-items:flex-start; gap:10px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:3px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span style="font-size:13.5px; line-height:1.55; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Sitio o menú digital de una página o pocas páginas</span>
+                </div>
+              
+                <div style="display:flex; align-items:flex-start; gap:10px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:3px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span style="font-size:13.5px; line-height:1.55; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Código QR de acceso, listo para imprimir</span>
+                </div>
+              
+                <div style="display:flex; align-items:flex-start; gap:10px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:3px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span style="font-size:13.5px; line-height:1.55; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Diseño fiel a la marca que ya tienes</span>
+                </div>
+              
             </div>
           </div>
-          <div class="dlv-form-field" style="display:flex; flex-direction:column; gap:8px;">
-            <label for="dlv-f-correo" style="font-size:13px; font-weight:600; color:rgba(255,255,255,0.75); font-family:'IBM Plex Sans', sans-serif;">Correo</label>
-            <input id="dlv-f-correo" name="correo" type="email" placeholder="tu@correo.com" style="background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.18); border-radius:10px; padding:12px 14px; font-size:14px; color:#FFFFFF; font-family:'IBM Plex Sans', sans-serif;">
+        
+          <div class="dlv-tier-card" style="background:#FBF5F9; border:1px solid #F0E0EC; border-radius:21px; padding:34px 28px; display:flex; flex-direction:column; gap:21px;">
+            <div>
+              <span style="display:inline-block; background:rgba(242,169,211,0.16); border-radius:999px; padding:6px 16px; font-size:12px; font-weight:700; letter-spacing:0.3px; text-transform:uppercase; color:#B04D85; font-family:'IBM Plex Sans', sans-serif;">Integral</span>
+              <h3 style="margin:14px 0 0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; line-height:1.3; color:#171012;">Tu marca necesita renovarse</h3>
+              <p style="margin:10px 0 0; font-size:14px; line-height:1.65; color:#63585E; font-family:'IBM Plex Sans', sans-serif;">Para negocios que ya operan pero cuya imagen necesita ponerse al día antes o durante la digitalización.</p>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:10px; margin-top:auto;">
+              
+                <div style="display:flex; align-items:flex-start; gap:10px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:3px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span style="font-size:13.5px; line-height:1.55; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Ajustes de paleta, tipografía y piezas clave</span>
+                </div>
+              
+                <div style="display:flex; align-items:flex-start; gap:10px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:3px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span style="font-size:13.5px; line-height:1.55; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Todo lo incluido en el nivel Esencial</span>
+                </div>
+              
+                <div style="display:flex; align-items:flex-start; gap:10px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:3px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span style="font-size:13.5px; line-height:1.55; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Una imagen renovada, fiel a la esencia original</span>
+                </div>
+              
+            </div>
           </div>
-          <div class="dlv-form-field" style="display:flex; flex-direction:column; gap:8px;">
-            <label for="dlv-f-proyecto" style="font-size:13px; font-weight:600; color:rgba(255,255,255,0.75); font-family:'IBM Plex Sans', sans-serif;">¿De qué trata tu proyecto?</label>
-            <input id="dlv-f-proyecto" name="proyecto" type="text" placeholder="Ej. restaurante, consultorio, tienda..." style="background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.18); border-radius:10px; padding:12px 14px; font-size:14px; color:#FFFFFF; font-family:'IBM Plex Sans', sans-serif;">
+        
+          <div class="dlv-tier-card" style="background:#FBF5F9; border:1px solid #F0E0EC; border-radius:21px; padding:34px 28px; display:flex; flex-direction:column; gap:21px;">
+            <div>
+              <span style="display:inline-block; background:rgba(242,169,211,0.16); border-radius:999px; padding:6px 16px; font-size:12px; font-weight:700; letter-spacing:0.3px; text-transform:uppercase; color:#B04D85; font-family:'IBM Plex Sans', sans-serif;">Full</span>
+              <h3 style="margin:14px 0 0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; line-height:1.3; color:#171012;">Estás empezando desde cero</h3>
+              <p style="margin:10px 0 0; font-size:14px; line-height:1.65; color:#63585E; font-family:'IBM Plex Sans', sans-serif;">Construimos tu identidad de marca completa —nombre visual, paleta, tono— y la digitalizamos por completo.</p>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:10px; margin-top:auto;">
+              
+                <div style="display:flex; align-items:flex-start; gap:10px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:3px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span style="font-size:13.5px; line-height:1.55; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Identidad de marca completa desde cero</span>
+                </div>
+              
+                <div style="display:flex; align-items:flex-start; gap:10px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:3px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span style="font-size:13.5px; line-height:1.55; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Piezas base de marca (logo, colores, tono)</span>
+                </div>
+              
+                <div style="display:flex; align-items:flex-start; gap:10px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:3px;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span style="font-size:13.5px; line-height:1.55; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Digitalización completa del paquete resultante</span>
+                </div>
+              
+            </div>
           </div>
-          <div class="dlv-form-field" style="display:flex; flex-direction:column; gap:8px;">
-            <label for="dlv-f-ayuda" style="font-size:13px; font-weight:600; color:rgba(255,255,255,0.75); font-family:'IBM Plex Sans', sans-serif;">¿En qué te podemos ayudar?</label>
-            <textarea id="dlv-f-ayuda" name="ayuda" required rows="4" placeholder="Cuéntanos qué necesitas" style="background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.18); border-radius:10px; padding:12px 14px; font-size:14px; color:#FFFFFF; font-family:'IBM Plex Sans', sans-serif; resize:vertical;"></textarea>
-          </div>
-          <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
-            <button type="submit" id="dlv-form-submit-btn" class="dlv-btn-primary dlv-form-submit" style="background:#F6A9D3; color:#2A1620; border:none; border-radius:999px; padding:16px 32px; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:16px; align-self:flex-start;">Enviar &rarr;</button>
-            <span id="dlv-form-status" style="font-size:14px; font-family:'IBM Plex Sans', sans-serif; color:rgba(255,255,255,0.75);"></span>
-          </div>
-        </form>
+        
+      </div>
 
-        <a href="https://wa.me/525586770707" class="dlv-contact-opt dlv-contact-opt-wa" style="margin-top:21px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.12); border-radius:21px; padding:21px 26px; display:flex; align-items:center; gap:16px;">
-          <div style="width:44px; height:44px; flex-shrink:0; border-radius:50%; background:rgba(37,211,102,0.18); display:flex; align-items:center; justify-content:center;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.16c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.12.11-1.8-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.8-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.27-.29.58-.36.78-.36.2 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.14.07.14.11.31.02.5-.09.19-.14.31-.27.47-.14.16-.28.36-.4.48-.14.13-.28.28-.12.55.16.27.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.2 1.37.27.14.43.12.59-.07.16-.19.68-.79.86-1.06.18-.27.36-.22.6-.13.24.09 1.55.73 1.81.86.27.14.44.2.5.31.06.11.06.65-.18 1.32z"/></svg>
-          </div>
-          <div style="flex-grow:1;">
-            <span style="display:block; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:15px; color:#FFFFFF;">¿Prefieres escribirnos directo?</span>
-            <span style="display:block; font-size:13px; color:rgba(255,255,255,0.65); font-family:'IBM Plex Sans', sans-serif;">Habla con nosotros por WhatsApp, sin llenar el formulario.</span>
-          </div>
-          <span style="font-size:13px; font-weight:700; color:#25D366; font-family:'IBM Plex Sans', sans-serif; white-space:nowrap;">Abrir chat &rarr;</span>
-        </a>
+      <!-- Extras: se agregan a cualquiera de los tres niveles, no cambian
+           el nivel por sí solos. Mismos "chips" que las etiquetas de
+           servicio del hero de Inicio, pero en versión clara. -->
+      <div style="margin-top:89px; max-width:987px; margin-left:auto; margin-right:auto; text-align:center;">
+        <h2 class="dlv-section-h2" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:28px; color:#171012; margin:0 0 14px;">Extras que se suman a cualquier nivel</h2>
+        <p style="margin:0 0 34px; font-size:16px; line-height:1.7; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Se agregan según lo que tu negocio necesite — no cambian el nivel por sí solos.</p>
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px;">
+          
+            <span class="dlv-extra-chip" style="background:#FBF5F9; border:1px solid #F0E0EC; border-radius:999px; padding:12px 22px; font-size:14px; font-weight:600; color:#171012; font-family:'IBM Plex Sans', sans-serif;">Soporte multi-idioma</span>
+          
+            <span class="dlv-extra-chip" style="background:#FBF5F9; border:1px solid #F0E0EC; border-radius:999px; padding:12px 22px; font-size:14px; font-weight:600; color:#171012; font-family:'IBM Plex Sans', sans-serif;">Códigos QR adicionales (mesas, tarjetas, empaque)</span>
+          
+            <span class="dlv-extra-chip" style="background:#FBF5F9; border:1px solid #F0E0EC; border-radius:999px; padding:12px 22px; font-size:14px; font-weight:600; color:#171012; font-family:'IBM Plex Sans', sans-serif;">Elementos interactivos (reservas, agenda de citas)</span>
+          
+            <span class="dlv-extra-chip" style="background:#FBF5F9; border:1px solid #F0E0EC; border-radius:999px; padding:12px 22px; font-size:14px; font-weight:600; color:#171012; font-family:'IBM Plex Sans', sans-serif;">Integración de pagos</span>
+          
+            <span class="dlv-extra-chip" style="background:#FBF5F9; border:1px solid #F0E0EC; border-radius:999px; padding:12px 22px; font-size:14px; font-weight:600; color:#171012; font-family:'IBM Plex Sans', sans-serif;">Mantenimiento continuo</span>
+          
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer / Contacto: idéntico al de "Inicio", para que la navegación y
-       los datos de contacto sean consistentes en todo el sitio. -->
+  <!-- CTA final -->
+  <section style="background:#171012; padding:89px 64px; text-align:center;">
+    <h2 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:28px; color:#FFFFFF; margin:0 0 14px;">¿No sabes qué nivel te conviene?</h2>
+    <p style="margin:0 0 28px; font-size:16px; line-height:1.7; color:rgba(255,255,255,0.75); font-family:'IBM Plex Sans', sans-serif; max-width:520px; margin-left:auto; margin-right:auto;">Cuéntanos de tu negocio y te ayudamos a encontrar el punto de partida correcto — sin compromiso.</p>
+    <a href="contacto.html" class="dlv-btn-primary" style="background:#F6A9D3; color:#2A1620; border:none; border-radius:999px; padding:16px 32px; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:16px; display:inline-flex; align-items:center;">Hablemos de tu proyecto &rarr;</a>
+  </section>
+
+  <!-- Footer: idéntico al del resto del sitio. -->
   <footer class="dlv-footer" style="background:#0E0A0B; padding:64px 64px 40px; position:relative; border-top:1px solid rgba(255,255,255,0.06);">
     <div class="dlv-footer-grid" style="max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px;">
       <div style="display:flex; flex-direction:column; gap:14px;">
@@ -225,62 +297,6 @@
 
 </div>
 
-<script>
-(function () {
-  var form = document.getElementById("dlv-contact-form");
-  var status = document.getElementById("dlv-form-status");
-  var btn = document.getElementById("dlv-form-submit-btn");
-  if (!form) return;
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var nombre = form.nombre.value.trim();
-    var numero = form.numero.value.trim();
-    var correo = form.correo.value.trim();
-    var proyecto = form.proyecto.value.trim();
-    var ayuda = form.ayuda.value.trim();
-    var lines = [
-      "Hola, quiero cotizar un proyecto con DigiLab.",
-      "Nombre: " + nombre,
-      "Número: " + numero
-    ];
-    if (correo) lines.push("Correo: " + correo);
-    if (proyecto) lines.push("De qué trata: " + proyecto);
-    lines.push("En qué necesito ayuda: " + ayuda);
-    var mensaje = lines.join("\n");
-
-    if (btn) { btn.disabled = true; btn.style.opacity = "0.6"; }
-    if (status) { status.textContent = "Enviando..."; status.style.color = "rgba(255,255,255,0.75)"; }
-
-    var payload = new FormData();
-    payload.append("nombre", nombre);
-    payload.append("numero", numero);
-    if (correo) payload.append("correo", correo);
-    if (proyecto) payload.append("proyecto", proyecto);
-    payload.append("ayuda", ayuda);
-    payload.append("message", mensaje);
-
-    fetch("https://formspree.io/f/mnpngyad", {
-      method: "POST",
-      body: payload,
-      headers: { "Accept": "application/json" }
-    }).then(function (response) {
-      if (response.ok) {
-        if (status) { status.textContent = "¡Listo! Te responderemos pronto."; status.style.color = "#CEE3B5"; }
-        form.reset();
-      } else {
-        throw new Error("respuesta no exitosa");
-      }
-    }).catch(function () {
-      if (status) {
-        status.textContent = "No se pudo enviar. Intenta de nuevo o escríbenos por WhatsApp.";
-        status.style.color = "#F6A9D3";
-      }
-    }).finally(function () {
-      if (btn) { btn.disabled = false; btn.style.opacity = "1"; }
-    });
-  });
-})();
-</script>
 <script>
 (function () {
   var toggle = document.querySelector("[data-menu-toggle]");
