@@ -19,6 +19,9 @@
     .dlv-menu-btn { transition: opacity .15s ease, transform .15s ease; }
     .dlv-menu-btn:hover { opacity: 0.72; transform: scale(1.08); }
 
+    .dlv-menu-link { transition: background .15s ease, color .15s ease; }
+    .dlv-menu-link:hover { background: rgba(255,255,255,0.08); color: #F6A9D3; }
+
     .dlv-back-link { transition: opacity .15s ease; }
     .dlv-back-link:hover { opacity: 0.7; }
 
@@ -144,13 +147,28 @@
       <a href="index.html" aria-label="Ir al inicio" style="text-decoration:none;">
         <span class="dlv-logo" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:24px; letter-spacing:0.2px; color:#F6A9D3; text-shadow:0 2px 14px rgba(0,0,0,0.6);">DigiLab</span>
       </a>
-      <button aria-label="Abrir menú" class="dlv-menu-btn" style="background:transparent; border:none; padding:8px; display:flex; align-items:center; justify-content:center;">
+      <button aria-label="Abrir menú" class="dlv-menu-btn" data-menu-toggle aria-haspopup="true" aria-expanded="false" style="background:transparent; border:none; padding:8px; display:flex; align-items:center; justify-content:center;">
         <svg width="26" height="18" viewBox="0 0 26 18" fill="none" style="filter:drop-shadow(0 2px 6px rgba(0,0,0,0.55));">
           <rect x="0" y="0" width="26" height="2.6" rx="1.3" fill="#FFFFFF"></rect>
           <rect x="0" y="7.7" width="26" height="2.6" rx="1.3" fill="#FFFFFF"></rect>
           <rect x="0" y="15.4" width="26" height="2.6" rx="1.3" fill="#FFFFFF"></rect>
         </svg>
       </button>
+      <div class="dlv-menu-dropdown" data-menu-dropdown style="display:none; position:absolute; top:100%; right:0; margin-top:12px; background:#171012; border:1px solid rgba(255,255,255,0.12); border-radius:16px; padding:10px; min-width:200px; flex-direction:column; gap:2px; box-shadow:0 20px 50px rgba(0,0,0,0.45); z-index:10;">
+        
+          <a href="index.html" class="dlv-menu-link" style="display:block; padding:10px 14px; border-radius:10px; font-size:14px; font-weight:600; color:#FFFFFF; text-decoration:none; font-family:'IBM Plex Sans', sans-serif;">Servicios</a>
+        
+          <a href="index.html" class="dlv-menu-link" style="display:block; padding:10px 14px; border-radius:10px; font-size:14px; font-weight:600; color:#FFFFFF; text-decoration:none; font-family:'IBM Plex Sans', sans-serif;">Cotizador</a>
+        
+          <a href="index.html#portafolio" class="dlv-menu-link" style="display:block; padding:10px 14px; border-radius:10px; font-size:14px; font-weight:600; color:#FFFFFF; text-decoration:none; font-family:'IBM Plex Sans', sans-serif;">Portafolio</a>
+        
+          <a href="casos.html" class="dlv-menu-link" style="display:block; padding:10px 14px; border-radius:10px; font-size:14px; font-weight:600; color:#FFFFFF; text-decoration:none; font-family:'IBM Plex Sans', sans-serif;">Casos de éxito</a>
+        
+          <a href="index.html" class="dlv-menu-link" style="display:block; padding:10px 14px; border-radius:10px; font-size:14px; font-weight:600; color:#FFFFFF; text-decoration:none; font-family:'IBM Plex Sans', sans-serif;">Nosotros</a>
+        
+          <a href="contacto.html" class="dlv-menu-link" style="display:block; padding:10px 14px; border-radius:10px; font-size:14px; font-weight:600; color:#FFFFFF; text-decoration:none; font-family:'IBM Plex Sans', sans-serif;">Contacto</a>
+        
+      </div>
     </header>
 
     <div class="dlv-casos-hero" style="position:relative; z-index:1; padding:55px 64px 89px; max-width:860px;">
@@ -184,6 +202,36 @@
             </div>
           </a>
         
+          <a href="#barista-home" data-modal-trigger="barista-home" class="dlv-case-card" style="display:flex; flex-direction:column; border-radius:21px; overflow:hidden; border:1px solid #F0E0EC; background:#FBF5F9; cursor:pointer;">
+            <div style="height:200px; position:relative; background:linear-gradient(135deg, #163B4E 0%, #5A3A22 100%); display:flex; align-items:center; justify-content:center; overflow:hidden;">
+              <div style="position:absolute; inset:0; z-index:0; filter:url(#dlv-grain); mix-blend-mode:overlay; opacity:0.28;"></div>
+              <div style="position:relative; z-index:1; width:112px; height:112px; border-radius:50%; background:rgba(255,255,255,0.95); box-shadow:0 12px 30px rgba(0,0,0,0.25); display:flex; align-items:center; justify-content:center; padding:6px; box-sizing:border-box;">
+                <img src="assets/logo-barista-home.png" alt="Barista Home coffee & brunch" style="max-width:100%; max-height:100%; object-fit:contain; border-radius:50%;">
+              </div>
+            </div>
+            <div style="padding:24px 24px 28px; display:flex; flex-direction:column; gap:10px; flex-grow:1;">
+              <span style="align-self:flex-start; background:rgba(242,169,211,0.18); border-radius:999px; padding:5px 14px; font-size:12px; font-weight:600; color:#B04D85; font-family:'IBM Plex Sans', sans-serif;">Restaurantes / bares</span>
+              <h3 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:18px; color:#171012;">Barista Home coffee & brunch</h3>
+              <p style="margin:0; font-size:14px; line-height:1.6; color:#63585E; font-family:'IBM Plex Sans', sans-serif; flex-grow:1;">Cafetería de especialidad con desayunos, comidas y cenas en Anzures, Puebla.</p>
+              <span style="margin-top:6px; font-size:13px; font-weight:700; color:#B04D85; font-family:'IBM Plex Sans', sans-serif;">Ver caso &rarr;</span>
+            </div>
+          </a>
+        
+          <a href="#cosmiatra-alexis-lima" data-modal-trigger="cosmiatra-alexis-lima" class="dlv-case-card" style="display:flex; flex-direction:column; border-radius:21px; overflow:hidden; border:1px solid #F0E0EC; background:#FBF5F9; cursor:pointer;">
+            <div style="height:200px; position:relative; background:linear-gradient(135deg, #5D7299 0%, #2A3547 100%); display:flex; align-items:center; justify-content:center; overflow:hidden;">
+              <div style="position:absolute; inset:0; z-index:0; filter:url(#dlv-grain); mix-blend-mode:overlay; opacity:0.28;"></div>
+              <div style="position:relative; z-index:1; width:112px; height:112px; border-radius:50%; background:rgba(255,255,255,0.95); box-shadow:0 12px 30px rgba(0,0,0,0.25); display:flex; align-items:center; justify-content:center; padding:23px; box-sizing:border-box;">
+                <img src="assets/logo-cosmiatra-alexis-lima.webp" alt="Cosmiatra Alexis Lima" style="max-width:100%; max-height:100%; object-fit:contain; border-radius:50%;">
+              </div>
+            </div>
+            <div style="padding:24px 24px 28px; display:flex; flex-direction:column; gap:10px; flex-grow:1;">
+              <span style="align-self:flex-start; background:rgba(242,169,211,0.18); border-radius:999px; padding:5px 14px; font-size:12px; font-weight:600; color:#B04D85; font-family:'IBM Plex Sans', sans-serif;">Salud y bienestar</span>
+              <h3 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:18px; color:#171012;">Cosmiatra Alexis Lima</h3>
+              <p style="margin:0; font-size:14px; line-height:1.6; color:#63585E; font-family:'IBM Plex Sans', sans-serif; flex-grow:1;">Consultorio de cosmiatría en Puebla, especializado en tratamientos faciales y corporales.</p>
+              <span style="margin-top:6px; font-size:13px; font-weight:700; color:#B04D85; font-family:'IBM Plex Sans', sans-serif;">Ver caso &rarr;</span>
+            </div>
+          </a>
+        
           <a href="#ceiba-25" data-modal-trigger="ceiba-25" class="dlv-case-card" style="display:flex; flex-direction:column; border-radius:21px; overflow:hidden; border:1px solid #F0E0EC; background:#FBF5F9; cursor:pointer;">
             <div style="height:200px; position:relative; background:linear-gradient(135deg, #2F6B4F 0%, #17402C 100%); display:flex; align-items:center; justify-content:center; overflow:hidden;">
               <div style="position:absolute; inset:0; z-index:0; filter:url(#dlv-grain); mix-blend-mode:overlay; opacity:0.28;"></div>
@@ -210,36 +258,6 @@
               <span style="align-self:flex-start; background:rgba(242,169,211,0.18); border-radius:999px; padding:5px 14px; font-size:12px; font-weight:600; color:#B04D85; font-family:'IBM Plex Sans', sans-serif;">Restaurantes / bares</span>
               <h3 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:18px; color:#171012;">Súper Taquería "El Kuñado"</h3>
               <p style="margin:0; font-size:14px; line-height:1.6; color:#63585E; font-family:'IBM Plex Sans', sans-serif; flex-grow:1;">Taquería de barrio con recetas caseras, al carbón y con el sazón tradicional en cada taco.</p>
-              <span style="margin-top:6px; font-size:13px; font-weight:700; color:#B04D85; font-family:'IBM Plex Sans', sans-serif;">Ver caso &rarr;</span>
-            </div>
-          </a>
-        
-          <a href="#cosmiatra-alexis-lima" data-modal-trigger="cosmiatra-alexis-lima" class="dlv-case-card" style="display:flex; flex-direction:column; border-radius:21px; overflow:hidden; border:1px solid #F0E0EC; background:#FBF5F9; cursor:pointer;">
-            <div style="height:200px; position:relative; background:linear-gradient(135deg, #5D7299 0%, #2A3547 100%); display:flex; align-items:center; justify-content:center; overflow:hidden;">
-              <div style="position:absolute; inset:0; z-index:0; filter:url(#dlv-grain); mix-blend-mode:overlay; opacity:0.28;"></div>
-              <div style="position:relative; z-index:1; width:112px; height:112px; border-radius:50%; background:rgba(255,255,255,0.95); box-shadow:0 12px 30px rgba(0,0,0,0.25); display:flex; align-items:center; justify-content:center; padding:23px; box-sizing:border-box;">
-                <img src="assets/logo-cosmiatra-alexis-lima.webp" alt="Cosmiatra Alexis Lima" style="max-width:100%; max-height:100%; object-fit:contain; border-radius:50%;">
-              </div>
-            </div>
-            <div style="padding:24px 24px 28px; display:flex; flex-direction:column; gap:10px; flex-grow:1;">
-              <span style="align-self:flex-start; background:rgba(242,169,211,0.18); border-radius:999px; padding:5px 14px; font-size:12px; font-weight:600; color:#B04D85; font-family:'IBM Plex Sans', sans-serif;">Salud y bienestar</span>
-              <h3 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:18px; color:#171012;">Cosmiatra Alexis Lima</h3>
-              <p style="margin:0; font-size:14px; line-height:1.6; color:#63585E; font-family:'IBM Plex Sans', sans-serif; flex-grow:1;">Consultorio de cosmiatría en Puebla, especializado en tratamientos faciales y corporales.</p>
-              <span style="margin-top:6px; font-size:13px; font-weight:700; color:#B04D85; font-family:'IBM Plex Sans', sans-serif;">Ver caso &rarr;</span>
-            </div>
-          </a>
-        
-          <a href="#barista-home" data-modal-trigger="barista-home" class="dlv-case-card" style="display:flex; flex-direction:column; border-radius:21px; overflow:hidden; border:1px solid #F0E0EC; background:#FBF5F9; cursor:pointer;">
-            <div style="height:200px; position:relative; background:linear-gradient(135deg, #163B4E 0%, #5A3A22 100%); display:flex; align-items:center; justify-content:center; overflow:hidden;">
-              <div style="position:absolute; inset:0; z-index:0; filter:url(#dlv-grain); mix-blend-mode:overlay; opacity:0.28;"></div>
-              <div style="position:relative; z-index:1; width:112px; height:112px; border-radius:50%; background:rgba(255,255,255,0.95); box-shadow:0 12px 30px rgba(0,0,0,0.25); display:flex; align-items:center; justify-content:center; padding:6px; box-sizing:border-box;">
-                <img src="assets/logo-barista-home.png" alt="Barista Home coffee & brunch" style="max-width:100%; max-height:100%; object-fit:contain; border-radius:50%;">
-              </div>
-            </div>
-            <div style="padding:24px 24px 28px; display:flex; flex-direction:column; gap:10px; flex-grow:1;">
-              <span style="align-self:flex-start; background:rgba(242,169,211,0.18); border-radius:999px; padding:5px 14px; font-size:12px; font-weight:600; color:#B04D85; font-family:'IBM Plex Sans', sans-serif;">Restaurantes / bares</span>
-              <h3 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:18px; color:#171012;">Barista Home coffee & brunch</h3>
-              <p style="margin:0; font-size:14px; line-height:1.6; color:#63585E; font-family:'IBM Plex Sans', sans-serif; flex-grow:1;">Cafetería de especialidad con desayunos, comidas y cenas en Anzures, Puebla.</p>
               <span style="margin-top:6px; font-size:13px; font-weight:700; color:#B04D85; font-family:'IBM Plex Sans', sans-serif;">Ver caso &rarr;</span>
             </div>
           </a>
@@ -386,6 +404,170 @@
       </div>
     </div>
   
+    <div class="dlv-modal-overlay" data-modal="barista-home">
+      <div class="dlv-modal-panel">
+        <button class="dlv-modal-close" data-modal-close aria-label="Cerrar" style="position:absolute; top:21px; right:21px; z-index:2; width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,0.14); border:none; display:flex; align-items:center; justify-content:center;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"><line x1="4" y1="4" x2="20" y2="20"></line><line x1="20" y1="4" x2="4" y2="20"></line></svg>
+        </button>
+
+        <div class="dlv-modal-section" style="padding:55px 55px 34px; background:linear-gradient(135deg, #163B4E 0%, #5A3A22 100%); position:relative; overflow:hidden;">
+          <div style="position:absolute; inset:0; z-index:0; filter:url(#dlv-grain); mix-blend-mode:overlay; opacity:0.28;"></div>
+          <div style="position:relative; z-index:1;">
+            <span style="display:inline-block; background:rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.32); border-radius:999px; padding:7px 18px; font-size:13px; font-weight:600; color:#FFFFFF; font-family:'IBM Plex Sans', sans-serif;">Restaurantes / bares</span>
+            <h2 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:34px; line-height:1.1; color:#FFFFFF; margin:21px 0 0; text-shadow:0 4px 26px rgba(0,0,0,0.55);">Barista Home coffee & brunch</h2>
+            <p style="margin:13px 0 0; font-size:16px; line-height:1.7; color:rgba(255,255,255,0.9); max-width:520px;">Cafetería de especialidad con desayunos, comidas y cenas en Anzures, Puebla.</p>
+            <a href="https://digilabweb.github.io/BaristaHome/" target="_blank" rel="noopener" style="margin-top:21px; display:inline-flex; align-items:center; border:1px solid rgba(255,255,255,0.5); border-radius:999px; padding:13px 26px; font-weight:700; font-size:14px; color:#FFFFFF; font-family:'Plus Jakarta Sans', sans-serif;">Visitar sitio en vivo &rarr;</a>
+          </div>
+        </div>
+
+        <div class="dlv-modal-section" style="padding:34px 55px; background:#FFFFFF;">
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; color:#171012; margin:0 0 13px;">Sobre el negocio</h3>
+          <p style="margin:0; font-size:15px; line-height:1.7; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Barista Home coffee & brunch es una cafetería de especialidad en Anzures, Puebla, con desayunos, comidas y cenas. Su menú impreso —diez páginas bien diseñadas, con una paleta e identidad propia ya definida— era la base de toda su experiencia en mesa.</p>
+
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; color:#171012; margin:34px 0 13px;">El problema</h3>
+          <p style="margin:0; font-size:15px; line-height:1.7; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">El menú de Barista Home solo existía en papel y en un archivo de Canva: sus clientes no podían consultarlo antes de llegar ni desde la mesa, y la única referencia en línea eran fotos que otros comensales subían a Google Maps, tomadas en ángulo y con reflejos del enmicado, difíciles de leer. Cualquier cambio de precio, además, obligaba a reimprimir todo el menú.</p>
+        </div>
+
+        <div class="dlv-modal-section" style="padding:34px 55px; background:#171012;">
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; color:#FFFFFF; margin:0 0 21px; text-align:center;">La solución</h3>
+          <div class="dlv-modal-sol-grid">
+            
+              <div class="dlv-modal-sol-card">
+                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Recopilación y verificación del contenido</h4>
+                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Transcribimos más de 150 productos a partir de fotos del menú físico y del diseño original en Canva, cruzando ambas fuentes para corregir precios desactualizados y completar tamaños faltantes.</p>
+              </div>
+            
+              <div class="dlv-modal-sol-card">
+                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Diseño fiel a la marca</h4>
+                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Replicamos la paleta exacta del menú impreso —azul, caramelo, dorado y crema—, el fondo de cada sección y las fotos de producto integradas sin recortes, con las tipografías elegantes de su Instagram.</p>
+              </div>
+            
+              <div class="dlv-modal-sol-card">
+                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Experiencia móvil</h4>
+                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Barra de categorías fija que resalta la sección visible, precios por tamaño alineados como en el menú físico, y la promoción de desayuno siempre destacada.</p>
+              </div>
+            
+              <div class="dlv-modal-sol-card">
+                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Optimización técnica</h4>
+                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Imágenes separadas del código para una carga rápida (el HTML pesa solo 30 KB), con el desplazamiento corregido en iPhone y Android.</p>
+              </div>
+            
+              <div class="dlv-modal-sol-card">
+                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Código QR de marca</h4>
+                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Un QR con los colores y el logotipo del negocio, con máxima corrección de errores y probado en distintos tamaños — listo como tarjeta de mesa y en versiones PNG y SVG.</p>
+              </div>
+            
+              <div class="dlv-modal-sol-card">
+                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Publicación y autonomía</h4>
+                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Publicado en GitHub Pages sin costo de hospedaje, con instrucciones para que el negocio actualice precios y fotos por su cuenta, sin reimprimir el QR.</p>
+              </div>
+            
+          </div>
+        </div>
+
+        <div class="dlv-modal-section" style="padding:34px 55px 55px; background:#FFFFFF;">
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; color:#171012; margin:0 0 13px;">El resultado</h3>
+          <p style="margin:0; font-size:15px; line-height:1.7; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Barista Home ahora tiene un menú digital siempre actualizado y fiel a su marca, que sus clientes consultan desde el celular con un solo escaneo, y que el propio negocio puede mantener sin depender de reimpresiones.</p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="dlv-modal-overlay" data-modal="cosmiatra-alexis-lima">
+      <div class="dlv-modal-panel">
+        <button class="dlv-modal-close" data-modal-close aria-label="Cerrar" style="position:absolute; top:21px; right:21px; z-index:2; width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,0.14); border:none; display:flex; align-items:center; justify-content:center;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"><line x1="4" y1="4" x2="20" y2="20"></line><line x1="20" y1="4" x2="4" y2="20"></line></svg>
+        </button>
+
+        <div class="dlv-modal-section" style="padding:55px 55px 34px; background:linear-gradient(135deg, #5D7299 0%, #2A3547 100%); position:relative; overflow:hidden;">
+          <div style="position:absolute; inset:0; z-index:0; filter:url(#dlv-grain); mix-blend-mode:overlay; opacity:0.28;"></div>
+          <div style="position:relative; z-index:1;">
+            <span style="display:inline-block; background:rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.32); border-radius:999px; padding:7px 18px; font-size:13px; font-weight:600; color:#FFFFFF; font-family:'IBM Plex Sans', sans-serif;">Salud y bienestar</span>
+            <h2 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:34px; line-height:1.1; color:#FFFFFF; margin:21px 0 0; text-shadow:0 4px 26px rgba(0,0,0,0.55);">Cosmiatra Alexis Lima</h2>
+            <p style="margin:13px 0 0; font-size:16px; line-height:1.7; color:rgba(255,255,255,0.9); max-width:520px;">Consultorio de cosmiatría en Puebla, especializado en tratamientos faciales y corporales.</p>
+            <a href="https://digilabweb.github.io/CosmiatraAlexisLima/" target="_blank" rel="noopener" style="margin-top:21px; display:inline-flex; align-items:center; border:1px solid rgba(255,255,255,0.5); border-radius:999px; padding:13px 26px; font-weight:700; font-size:14px; color:#FFFFFF; font-family:'Plus Jakarta Sans', sans-serif;">Visitar sitio en vivo &rarr;</a>
+          </div>
+        </div>
+
+        <div class="dlv-modal-section" style="padding:34px 55px; background:#FFFFFF;">
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; color:#171012; margin:0 0 13px;">Sobre el negocio</h3>
+          <p style="margin:0; font-size:15px; line-height:1.7; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Alexis Lima es cosmiatra en Puebla, especializada en tratamientos faciales y corporales. Su marca —un monograma elegante en tonos azul acero— ya existía, pero todavía no tenía un sitio propio donde reflejarla.</p>
+
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; color:#171012; margin:34px 0 13px;">El problema</h3>
+          <p style="margin:0; font-size:15px; line-height:1.7; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Antes de trabajar con nosotros, Alexis no tenía una página web propia: su presencia era solo en redes sociales, donde cada paciente nueva tenía que escribir por mensaje directo para preguntar qué tratamientos ofrecía y cuánto costaban, sin ningún catálogo visual que le permitiera cotizar de forma clara antes de escribir. No había un espacio propio que transmitiera, desde antes de la primera cita, la confianza y la calidad que un consultorio de cosmiatría necesita.</p>
+        </div>
+
+        <div class="dlv-modal-section" style="padding:34px 55px; background:#171012;">
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; color:#FFFFFF; margin:0 0 21px; text-align:center;">La solución</h3>
+          <div class="dlv-modal-sol-grid">
+            
+              <div class="dlv-modal-sol-card">
+                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Sitio web funcional y profesional</h4>
+                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Un sitio completo, ya en funcionamiento, fiel a los tonos y al monograma que representan a Alexis Lima.</p>
+              </div>
+            
+              <div class="dlv-modal-sol-card">
+                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Catálogo para cotizar</h4>
+                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Un catálogo visual con cada tratamiento, para que los pacientes puedan cotizar de forma clara antes de escribir.</p>
+              </div>
+            
+              <div class="dlv-modal-sol-card">
+                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Códigos QR</h4>
+                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Códigos QR que llevan directo al catálogo y a la agenda, listos para usar en el consultorio.</p>
+              </div>
+            
+              <div class="dlv-modal-sol-card">
+                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Agenda por WhatsApp</h4>
+                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Un botón directo para agendar cita, sin depender de mensajes perdidos en redes.</p>
+              </div>
+            
+              <div class="dlv-modal-sol-card">
+                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Presencia que da confianza</h4>
+                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Una digitalización completa de su propuesta, que respalda la reputación del consultorio desde el primer clic.</p>
+              </div>
+            
+          </div>
+        </div>
+
+        <div class="dlv-modal-section" style="padding:34px 55px 55px; background:#FFFFFF;">
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; color:#171012; margin:0 0 13px;">El resultado</h3>
+          <p style="margin:0; font-size:15px; line-height:1.7; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Hoy cualquier persona interesada puede conocer los tratamientos y el estilo del consultorio antes de escribir, y agendar su cita directo por WhatsApp — con un sitio que ya refleja la misma calidad que reciben en consulta.</p>
+        </div>
+      </div>
+    </div>
+  
     <div class="dlv-modal-overlay" data-modal="ceiba-25">
       <div class="dlv-modal-panel">
         <button class="dlv-modal-close" data-modal-close aria-label="Cerrar" style="position:absolute; top:21px; right:21px; z-index:2; width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,0.14); border:none; display:flex; align-items:center; justify-content:center;">
@@ -398,7 +580,7 @@
             <span style="display:inline-block; background:rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.32); border-radius:999px; padding:7px 18px; font-size:13px; font-weight:600; color:#FFFFFF; font-family:'IBM Plex Sans', sans-serif;">Restaurantes / bares</span>
             <h2 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:34px; line-height:1.1; color:#FFFFFF; margin:21px 0 0; text-shadow:0 4px 26px rgba(0,0,0,0.55);">Ceiba 25 Sport Bar Roof</h2>
             <p style="margin:13px 0 0; font-size:16px; line-height:1.7; color:rgba(255,255,255,0.9); max-width:520px;">Bar deportivo en azotea, con ambiente social, pantallas para cada partido y coctelería de autor.</p>
-            <a href="https://sofiavida.github.io/SportBar/" target="_blank" rel="noopener" style="margin-top:21px; display:inline-flex; align-items:center; border:1px solid rgba(255,255,255,0.5); border-radius:999px; padding:13px 26px; font-weight:700; font-size:14px; color:#FFFFFF; font-family:'Plus Jakarta Sans', sans-serif;">Visitar sitio en vivo &rarr;</a>
+            <a href="https://digilabweb.github.io/SportBar/" target="_blank" rel="noopener" style="margin-top:21px; display:inline-flex; align-items:center; border:1px solid rgba(255,255,255,0.5); border-radius:999px; padding:13px 26px; font-weight:700; font-size:14px; color:#FFFFFF; font-family:'Plus Jakarta Sans', sans-serif;">Visitar sitio en vivo &rarr;</a>
           </div>
         </div>
 
@@ -534,170 +716,6 @@
       </div>
     </div>
   
-    <div class="dlv-modal-overlay" data-modal="cosmiatra-alexis-lima">
-      <div class="dlv-modal-panel">
-        <button class="dlv-modal-close" data-modal-close aria-label="Cerrar" style="position:absolute; top:21px; right:21px; z-index:2; width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,0.14); border:none; display:flex; align-items:center; justify-content:center;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"><line x1="4" y1="4" x2="20" y2="20"></line><line x1="20" y1="4" x2="4" y2="20"></line></svg>
-        </button>
-
-        <div class="dlv-modal-section" style="padding:55px 55px 34px; background:linear-gradient(135deg, #5D7299 0%, #2A3547 100%); position:relative; overflow:hidden;">
-          <div style="position:absolute; inset:0; z-index:0; filter:url(#dlv-grain); mix-blend-mode:overlay; opacity:0.28;"></div>
-          <div style="position:relative; z-index:1;">
-            <span style="display:inline-block; background:rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.32); border-radius:999px; padding:7px 18px; font-size:13px; font-weight:600; color:#FFFFFF; font-family:'IBM Plex Sans', sans-serif;">Salud y bienestar</span>
-            <h2 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:34px; line-height:1.1; color:#FFFFFF; margin:21px 0 0; text-shadow:0 4px 26px rgba(0,0,0,0.55);">Cosmiatra Alexis Lima</h2>
-            <p style="margin:13px 0 0; font-size:16px; line-height:1.7; color:rgba(255,255,255,0.9); max-width:520px;">Consultorio de cosmiatría en Puebla, especializado en tratamientos faciales y corporales.</p>
-            <a href="https://digilabweb.github.io/CosmiatraAlexisLima/" target="_blank" rel="noopener" style="margin-top:21px; display:inline-flex; align-items:center; border:1px solid rgba(255,255,255,0.5); border-radius:999px; padding:13px 26px; font-weight:700; font-size:14px; color:#FFFFFF; font-family:'Plus Jakarta Sans', sans-serif;">Visitar sitio en vivo &rarr;</a>
-          </div>
-        </div>
-
-        <div class="dlv-modal-section" style="padding:34px 55px; background:#FFFFFF;">
-          <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; color:#171012; margin:0 0 13px;">Sobre el negocio</h3>
-          <p style="margin:0; font-size:15px; line-height:1.7; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Alexis Lima es cosmiatra en Puebla, especializada en tratamientos faciales y corporales. Su marca —un monograma elegante en tonos azul acero— ya existía, pero todavía no tenía un sitio propio donde reflejarla.</p>
-
-          <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; color:#171012; margin:34px 0 13px;">El problema</h3>
-          <p style="margin:0; font-size:15px; line-height:1.7; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Antes de trabajar con nosotros, Alexis no tenía una página web propia: su presencia era solo en redes sociales, donde cada paciente nueva tenía que escribir por mensaje directo para preguntar qué tratamientos ofrecía y cuánto costaban, sin ningún catálogo visual que le permitiera cotizar de forma clara antes de escribir. No había un espacio propio que transmitiera, desde antes de la primera cita, la confianza y la calidad que un consultorio de cosmiatría necesita.</p>
-        </div>
-
-        <div class="dlv-modal-section" style="padding:34px 55px; background:#171012;">
-          <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; color:#FFFFFF; margin:0 0 21px; text-align:center;">La solución</h3>
-          <div class="dlv-modal-sol-grid">
-            
-              <div class="dlv-modal-sol-card">
-                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </div>
-                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Sitio web funcional y profesional</h4>
-                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Un sitio completo, ya en funcionamiento, fiel a los tonos y al monograma que representan a Alexis Lima.</p>
-              </div>
-            
-              <div class="dlv-modal-sol-card">
-                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </div>
-                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Catálogo para cotizar</h4>
-                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Un catálogo visual con cada tratamiento, para que los pacientes puedan cotizar de forma clara antes de escribir.</p>
-              </div>
-            
-              <div class="dlv-modal-sol-card">
-                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </div>
-                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Códigos QR</h4>
-                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Códigos QR que llevan directo al catálogo y a la agenda, listos para usar en el consultorio.</p>
-              </div>
-            
-              <div class="dlv-modal-sol-card">
-                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </div>
-                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Agenda por WhatsApp</h4>
-                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Un botón directo para agendar cita, sin depender de mensajes perdidos en redes.</p>
-              </div>
-            
-              <div class="dlv-modal-sol-card">
-                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </div>
-                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Presencia que da confianza</h4>
-                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Una digitalización completa de su propuesta, que respalda la reputación del consultorio desde el primer clic.</p>
-              </div>
-            
-          </div>
-        </div>
-
-        <div class="dlv-modal-section" style="padding:34px 55px 55px; background:#FFFFFF;">
-          <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; color:#171012; margin:0 0 13px;">El resultado</h3>
-          <p style="margin:0; font-size:15px; line-height:1.7; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Hoy cualquier persona interesada puede conocer los tratamientos y el estilo del consultorio antes de escribir, y agendar su cita directo por WhatsApp — con un sitio que ya refleja la misma calidad que reciben en consulta.</p>
-        </div>
-      </div>
-    </div>
-  
-    <div class="dlv-modal-overlay" data-modal="barista-home">
-      <div class="dlv-modal-panel">
-        <button class="dlv-modal-close" data-modal-close aria-label="Cerrar" style="position:absolute; top:21px; right:21px; z-index:2; width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,0.14); border:none; display:flex; align-items:center; justify-content:center;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"><line x1="4" y1="4" x2="20" y2="20"></line><line x1="20" y1="4" x2="4" y2="20"></line></svg>
-        </button>
-
-        <div class="dlv-modal-section" style="padding:55px 55px 34px; background:linear-gradient(135deg, #163B4E 0%, #5A3A22 100%); position:relative; overflow:hidden;">
-          <div style="position:absolute; inset:0; z-index:0; filter:url(#dlv-grain); mix-blend-mode:overlay; opacity:0.28;"></div>
-          <div style="position:relative; z-index:1;">
-            <span style="display:inline-block; background:rgba(255,255,255,0.16); border:1px solid rgba(255,255,255,0.32); border-radius:999px; padding:7px 18px; font-size:13px; font-weight:600; color:#FFFFFF; font-family:'IBM Plex Sans', sans-serif;">Restaurantes / bares</span>
-            <h2 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:34px; line-height:1.1; color:#FFFFFF; margin:21px 0 0; text-shadow:0 4px 26px rgba(0,0,0,0.55);">Barista Home coffee & brunch</h2>
-            <p style="margin:13px 0 0; font-size:16px; line-height:1.7; color:rgba(255,255,255,0.9); max-width:520px;">Cafetería de especialidad con desayunos, comidas y cenas en Anzures, Puebla.</p>
-            <a href="https://digilabweb.github.io/BaristaHome/" target="_blank" rel="noopener" style="margin-top:21px; display:inline-flex; align-items:center; border:1px solid rgba(255,255,255,0.5); border-radius:999px; padding:13px 26px; font-weight:700; font-size:14px; color:#FFFFFF; font-family:'Plus Jakarta Sans', sans-serif;">Visitar sitio en vivo &rarr;</a>
-          </div>
-        </div>
-
-        <div class="dlv-modal-section" style="padding:34px 55px; background:#FFFFFF;">
-          <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; color:#171012; margin:0 0 13px;">Sobre el negocio</h3>
-          <p style="margin:0; font-size:15px; line-height:1.7; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Barista Home coffee & brunch es una cafetería de especialidad en Anzures, Puebla, con desayunos, comidas y cenas. Su menú impreso —diez páginas bien diseñadas, con una paleta e identidad propia ya definida— era la base de toda su experiencia en mesa.</p>
-
-          <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; color:#171012; margin:34px 0 13px;">El problema</h3>
-          <p style="margin:0; font-size:15px; line-height:1.7; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">El menú de Barista Home solo existía en papel y en un archivo de Canva: sus clientes no podían consultarlo antes de llegar ni desde la mesa, y la única referencia en línea eran fotos que otros comensales subían a Google Maps, tomadas en ángulo y con reflejos del enmicado, difíciles de leer. Cualquier cambio de precio, además, obligaba a reimprimir todo el menú.</p>
-        </div>
-
-        <div class="dlv-modal-section" style="padding:34px 55px; background:#171012;">
-          <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; color:#FFFFFF; margin:0 0 21px; text-align:center;">La solución</h3>
-          <div class="dlv-modal-sol-grid">
-            
-              <div class="dlv-modal-sol-card">
-                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </div>
-                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Recopilación y verificación del contenido</h4>
-                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Transcribimos más de 150 productos a partir de fotos del menú físico y del diseño original en Canva, cruzando ambas fuentes para corregir precios desactualizados y completar tamaños faltantes.</p>
-              </div>
-            
-              <div class="dlv-modal-sol-card">
-                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </div>
-                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Diseño fiel a la marca</h4>
-                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Replicamos la paleta exacta del menú impreso —azul, caramelo, dorado y crema—, el fondo de cada sección y las fotos de producto integradas sin recortes, con las tipografías elegantes de su Instagram.</p>
-              </div>
-            
-              <div class="dlv-modal-sol-card">
-                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </div>
-                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Experiencia móvil</h4>
-                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Barra de categorías fija que resalta la sección visible, precios por tamaño alineados como en el menú físico, y la promoción de desayuno siempre destacada.</p>
-              </div>
-            
-              <div class="dlv-modal-sol-card">
-                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </div>
-                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Optimización técnica</h4>
-                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Imágenes separadas del código para una carga rápida (el HTML pesa solo 30 KB), con el desplazamiento corregido en iPhone y Android.</p>
-              </div>
-            
-              <div class="dlv-modal-sol-card">
-                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </div>
-                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Código QR de marca</h4>
-                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Un QR con los colores y el logotipo del negocio, con máxima corrección de errores y probado en distintos tamaños — listo como tarjeta de mesa y en versiones PNG y SVG.</p>
-              </div>
-            
-              <div class="dlv-modal-sol-card">
-                <div style="width:34px; height:34px; border-radius:50%; background:rgba(242,169,211,0.18); display:flex; align-items:center; justify-content:center;">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F6A9D3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </div>
-                <h4 style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:14px; color:#FFFFFF;">Publicación y autonomía</h4>
-                <p style="margin:0; font-size:13px; line-height:1.55; color:rgba(255,255,255,0.72); font-family:'IBM Plex Sans', sans-serif;">Publicado en GitHub Pages sin costo de hospedaje, con instrucciones para que el negocio actualice precios y fotos por su cuenta, sin reimprimir el QR.</p>
-              </div>
-            
-          </div>
-        </div>
-
-        <div class="dlv-modal-section" style="padding:34px 55px 55px; background:#FFFFFF;">
-          <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; color:#171012; margin:0 0 13px;">El resultado</h3>
-          <p style="margin:0; font-size:15px; line-height:1.7; color:#4A4247; font-family:'IBM Plex Sans', sans-serif;">Barista Home ahora tiene un menú digital siempre actualizado y fiel a su marca, que sus clientes consultan desde el celular con un solo escaneo, y que el propio negocio puede mantener sin depender de reimpresiones.</p>
-        </div>
-      </div>
-    </div>
-  
 
 </div>
 
@@ -758,6 +776,35 @@
   document.addEventListener("DOMContentLoaded", openFromHash);
   window.addEventListener("load", openFromHash);
   openFromHash();
+})();
+</script>
+<script>
+(function () {
+  var toggle = document.querySelector("[data-menu-toggle]");
+  var dropdown = document.querySelector("[data-menu-dropdown]");
+  if (!toggle || !dropdown) return;
+  function isOpen() { return dropdown.style.display === "flex"; }
+  function openMenu() {
+    dropdown.style.display = "flex";
+    toggle.setAttribute("aria-expanded", "true");
+  }
+  function closeMenu() {
+    dropdown.style.display = "none";
+    toggle.setAttribute("aria-expanded", "false");
+  }
+  toggle.addEventListener("click", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (isOpen()) { closeMenu(); } else { openMenu(); }
+  });
+  document.addEventListener("click", function (e) {
+    if (!isOpen()) return;
+    if (dropdown.contains(e.target) || e.target === toggle || toggle.contains(e.target)) return;
+    closeMenu();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeMenu();
+  });
 })();
 </script>
 </body>

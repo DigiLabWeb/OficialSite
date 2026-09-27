@@ -19,6 +19,9 @@
     .dlv-menu-btn { transition: opacity .15s ease, transform .15s ease; }
     .dlv-menu-btn:hover { opacity: 0.72; transform: scale(1.08); }
 
+    .dlv-menu-link { transition: background .15s ease, color .15s ease; }
+    .dlv-menu-link:hover { background: rgba(255,255,255,0.08); color: #F6A9D3; }
+
     .dlv-back-link { transition: opacity .15s ease; }
     .dlv-back-link:hover { opacity: 0.7; }
 
@@ -106,13 +109,28 @@
       <a href="index.html" aria-label="Ir al inicio" style="text-decoration:none;">
         <span class="dlv-logo" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:24px; letter-spacing:0.2px; color:#F6A9D3; text-shadow:0 2px 14px rgba(0,0,0,0.6);">DigiLab</span>
       </a>
-      <button aria-label="Abrir menú" class="dlv-menu-btn" style="background:transparent; border:none; padding:8px; display:flex; align-items:center; justify-content:center;">
+      <button aria-label="Abrir menú" class="dlv-menu-btn" data-menu-toggle aria-haspopup="true" aria-expanded="false" style="background:transparent; border:none; padding:8px; display:flex; align-items:center; justify-content:center;">
         <svg width="26" height="18" viewBox="0 0 26 18" fill="none" style="filter:drop-shadow(0 2px 6px rgba(0,0,0,0.55));">
           <rect x="0" y="0" width="26" height="2.6" rx="1.3" fill="#FFFFFF"></rect>
           <rect x="0" y="7.7" width="26" height="2.6" rx="1.3" fill="#FFFFFF"></rect>
           <rect x="0" y="15.4" width="26" height="2.6" rx="1.3" fill="#FFFFFF"></rect>
         </svg>
       </button>
+      <div class="dlv-menu-dropdown" data-menu-dropdown style="display:none; position:absolute; top:100%; right:0; margin-top:12px; background:#171012; border:1px solid rgba(255,255,255,0.12); border-radius:16px; padding:10px; min-width:200px; flex-direction:column; gap:2px; box-shadow:0 20px 50px rgba(0,0,0,0.45); z-index:10;">
+        
+          <a href="index.html" class="dlv-menu-link" style="display:block; padding:10px 14px; border-radius:10px; font-size:14px; font-weight:600; color:#FFFFFF; text-decoration:none; font-family:'IBM Plex Sans', sans-serif;">Servicios</a>
+        
+          <a href="index.html" class="dlv-menu-link" style="display:block; padding:10px 14px; border-radius:10px; font-size:14px; font-weight:600; color:#FFFFFF; text-decoration:none; font-family:'IBM Plex Sans', sans-serif;">Cotizador</a>
+        
+          <a href="index.html#portafolio" class="dlv-menu-link" style="display:block; padding:10px 14px; border-radius:10px; font-size:14px; font-weight:600; color:#FFFFFF; text-decoration:none; font-family:'IBM Plex Sans', sans-serif;">Portafolio</a>
+        
+          <a href="casos.html" class="dlv-menu-link" style="display:block; padding:10px 14px; border-radius:10px; font-size:14px; font-weight:600; color:#FFFFFF; text-decoration:none; font-family:'IBM Plex Sans', sans-serif;">Casos de éxito</a>
+        
+          <a href="index.html" class="dlv-menu-link" style="display:block; padding:10px 14px; border-radius:10px; font-size:14px; font-weight:600; color:#FFFFFF; text-decoration:none; font-family:'IBM Plex Sans', sans-serif;">Nosotros</a>
+        
+          <a href="contacto.html" class="dlv-menu-link" style="display:block; padding:10px 14px; border-radius:10px; font-size:14px; font-weight:600; color:#FFFFFF; text-decoration:none; font-family:'IBM Plex Sans', sans-serif;">Contacto</a>
+        
+      </div>
     </header>
 
     <div class="dlv-contact-section" style="position:relative; z-index:1; padding:55px 64px 89px; max-width:860px; margin-top:auto; margin-bottom:auto; flex-shrink:0; width:100%;">
@@ -145,7 +163,10 @@
             <label for="dlv-f-ayuda" style="font-size:13px; font-weight:600; color:rgba(255,255,255,0.75); font-family:'IBM Plex Sans', sans-serif;">¿En qué te podemos ayudar?</label>
             <textarea id="dlv-f-ayuda" name="ayuda" required rows="4" placeholder="Cuéntanos qué necesitas" style="background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.18); border-radius:10px; padding:12px 14px; font-size:14px; color:#FFFFFF; font-family:'IBM Plex Sans', sans-serif; resize:vertical;"></textarea>
           </div>
-          <button type="submit" class="dlv-btn-primary dlv-form-submit" style="background:#F6A9D3; color:#2A1620; border:none; border-radius:999px; padding:16px 32px; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:16px; align-self:flex-start;">Enviar por WhatsApp &rarr;</button>
+          <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+            <button type="submit" id="dlv-form-submit-btn" class="dlv-btn-primary dlv-form-submit" style="background:#F6A9D3; color:#2A1620; border:none; border-radius:999px; padding:16px 32px; font-family:'Plus Jakarta Sans', sans-serif; font-weight:700; font-size:16px; align-self:flex-start;">Enviar &rarr;</button>
+            <span id="dlv-form-status" style="font-size:14px; font-family:'IBM Plex Sans', sans-serif; color:rgba(255,255,255,0.75);"></span>
+          </div>
         </form>
 
         <a href="https://wa.me/525586770707" class="dlv-contact-opt dlv-contact-opt-wa" style="margin-top:21px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.12); border-radius:21px; padding:21px 26px; display:flex; align-items:center; gap:16px;">
@@ -211,6 +232,8 @@
 <script>
 (function () {
   var form = document.getElementById("dlv-contact-form");
+  var status = document.getElementById("dlv-form-status");
+  var btn = document.getElementById("dlv-form-submit-btn");
   if (!form) return;
   form.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -227,8 +250,67 @@
     if (correo) lines.push("Correo: " + correo);
     if (proyecto) lines.push("De qué trata: " + proyecto);
     lines.push("En qué necesito ayuda: " + ayuda);
-    var text = encodeURIComponent(lines.join("\n"));
-    window.open("https://wa.me/525586770707?text=" + text, "_blank", "noopener");
+    var mensaje = lines.join("\n");
+
+    if (btn) { btn.disabled = true; btn.style.opacity = "0.6"; }
+    if (status) { status.textContent = "Enviando..."; status.style.color = "rgba(255,255,255,0.75)"; }
+
+    var payload = new FormData();
+    payload.append("nombre", nombre);
+    payload.append("numero", numero);
+    if (correo) payload.append("correo", correo);
+    if (proyecto) payload.append("proyecto", proyecto);
+    payload.append("ayuda", ayuda);
+    payload.append("message", mensaje);
+
+    fetch("https://formspree.io/f/mnpngyad", {
+      method: "POST",
+      body: payload,
+      headers: { "Accept": "application/json" }
+    }).then(function (response) {
+      if (response.ok) {
+        if (status) { status.textContent = "¡Listo! Te responderemos pronto."; status.style.color = "#CEE3B5"; }
+        form.reset();
+      } else {
+        throw new Error("respuesta no exitosa");
+      }
+    }).catch(function () {
+      if (status) {
+        status.textContent = "No se pudo enviar. Intenta de nuevo o escríbenos por WhatsApp.";
+        status.style.color = "#F6A9D3";
+      }
+    }).finally(function () {
+      if (btn) { btn.disabled = false; btn.style.opacity = "1"; }
+    });
+  });
+})();
+</script>
+<script>
+(function () {
+  var toggle = document.querySelector("[data-menu-toggle]");
+  var dropdown = document.querySelector("[data-menu-dropdown]");
+  if (!toggle || !dropdown) return;
+  function isOpen() { return dropdown.style.display === "flex"; }
+  function openMenu() {
+    dropdown.style.display = "flex";
+    toggle.setAttribute("aria-expanded", "true");
+  }
+  function closeMenu() {
+    dropdown.style.display = "none";
+    toggle.setAttribute("aria-expanded", "false");
+  }
+  toggle.addEventListener("click", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (isOpen()) { closeMenu(); } else { openMenu(); }
+  });
+  document.addEventListener("click", function (e) {
+    if (!isOpen()) return;
+    if (dropdown.contains(e.target) || e.target === toggle || toggle.contains(e.target)) return;
+    closeMenu();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeMenu();
   });
 })();
 </script>
