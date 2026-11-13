@@ -12,6 +12,7 @@
 <style>
 
   html { scroll-behavior:smooth; }
+  #servicios, #casos, #contacto, #nosotros { scroll-margin-top:80px; }
   body { margin:0; background:#000000; font-family:'IBM Plex Sans', sans-serif; position:relative; }
   body::before { content:""; position:fixed; inset:0; pointer-events:none; z-index:0; background:radial-gradient(circle at 18% 8%, rgba(246,169,211,0.07), transparent 42%), radial-gradient(circle at 85% 30%, rgba(206,227,181,0.06), transparent 45%), radial-gradient(circle at 30% 85%, rgba(246,169,211,0.05), transparent 45%); }
   * { box-sizing:border-box; }
@@ -34,8 +35,6 @@
   .dlr-press:active { transform:scale(0.95); }
   .dlr-social-btn { transition:border-color .15s ease, color .15s ease, transform .15s ease; }
   .dlr-social-btn:hover { border-color:#F6A9D3; color:#F6A9D3; transform:translateY(-2px); }
-  .dlr-lang-toggle { transition:border-color .15s ease, color .15s ease; }
-  .dlr-lang-toggle:hover { border-color:#FFFFFF; color:#FFFFFF; }
   @keyframes dlr-float-a { 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(26px,-34px) scale(1.04); } }
   @keyframes dlr-float-b { 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(-30px,28px) scale(0.97); } }
   @keyframes dlr-float-c { 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(20px,32px) scale(1.05); } }
@@ -84,7 +83,9 @@
     .dlr-flow-label { font-size:14px; }
   }
 
-  [data-i18n="en"] { display:none; }
+  @media (max-width:1399px) {
+    .dlr-grid-words { grid-template-columns:1fr !important; }
+  }
 
   @media (prefers-reduced-motion: reduce) {
     .dlr-sphere, .dlr-reveal, .dlr-hero-content, .dlr-parallax, .dlr-loader { animation:none !important; transition:none !important; }
@@ -99,6 +100,7 @@
     .dlr-grid-3 { grid-template-columns:repeat(2, 1fr) !important; }
     .dlr-grid-6 { grid-template-columns:repeat(3, 1fr) !important; }
     .dlr-deco-hide-mobile { display:none !important; }
+    .dlr-grid-words { grid-template-columns:1fr !important; }
     .dlr-nav-links-desktop, .dlr-nav-cta-desktop { display:none !important; }
     .dlr-mobile-toggle { display:flex !important; }
     .dlr-word-text { font-size:42px !important; }
@@ -131,23 +133,22 @@
 
   <!-- Nav -->
   <nav style="position:sticky; top:0; z-index:30; display:flex; align-items:center; justify-content:space-between; padding:21px 55px; background:rgba(0,0,0,0.85); backdrop-filter:blur(10px); border-bottom:1px solid rgba(255,255,255,0.28);">
-    <div style="display:flex; align-items:center; gap:10px;">
+    <a href="#" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
       <span style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:21px; letter-spacing:-0.01em; color:#F6A9D3;">DigiLab</span>
-    </div>
+    </a>
     <div class="dlr-nav-links-desktop" style="display:flex; align-items:center; gap:34px;">
       
-        <a href="servicios.html" class="dlr-nav-link " style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; font-family:'IBM Plex Sans', sans-serif;">Servicios</a>
+        <a href="#servicios" class="dlr-nav-link " style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; font-family:'IBM Plex Sans', sans-serif;">Servicios</a>
       
-        <a href="casos.html" class="dlr-nav-link is-active" style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; font-family:'IBM Plex Sans', sans-serif;">Casos de éxito</a>
+        <a href="casos.html" class="dlr-nav-link " style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; font-family:'IBM Plex Sans', sans-serif;">Casos de éxito</a>
       
-        <a href="nosotros.html" class="dlr-nav-link " style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; font-family:'IBM Plex Sans', sans-serif;">Nosotros</a>
+        <a href="#nosotros" class="dlr-nav-link " style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; font-family:'IBM Plex Sans', sans-serif;">Nosotros</a>
       
-        <a href="contacto.html" class="dlr-nav-link " style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; font-family:'IBM Plex Sans', sans-serif;">Contacto</a>
+        <a href="#contacto" class="dlr-nav-link " style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; font-family:'IBM Plex Sans', sans-serif;">Contacto</a>
       
-      <button data-lang-toggle class="dlr-lang-toggle dlr-press" aria-label="Cambiar idioma" style="background:transparent; border:1px solid rgba(255,255,255,0.3); color:rgba(255,255,255,0.72); border-radius:999px; padding:6px 14px; font-size:11px; font-weight:700; letter-spacing:0.14em; font-family:'IBM Plex Sans', sans-serif;">ES / EN</button>
     </div>
     <a href="#contacto" class="dlr-nav-cta-desktop dlr-btn-outline dlr-press" style="border:1px solid #CEE3B5; color:#CEE3B5; border-radius:999px; padding:10px 24px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.18em; font-family:'IBM Plex Sans', sans-serif;">
-      <span data-i18n="es">Contáctanos</span><span data-i18n="en">Contact us</span>
+      Contáctanos
     </a>
     <button class="dlr-mobile-toggle dlr-press" data-mobile-toggle aria-label="Abrir menú" aria-expanded="false" aria-haspopup="true" style="border:1px solid rgba(255,255,255,0.35); border-radius:8px; width:40px; height:40px; background:transparent; align-items:center; justify-content:center;">
       <svg width="18" height="13" viewBox="0 0 18 13" fill="none"><rect x="0" y="0" width="18" height="2" rx="1" fill="#FFFFFF"></rect><rect x="0" y="5.5" width="18" height="2" rx="1" fill="#FFFFFF"></rect><rect x="0" y="11" width="18" height="2" rx="1" fill="#FFFFFF"></rect></svg>
@@ -155,13 +156,13 @@
   </nav>
   <div class="dlr-mobile-menu" data-mobile-menu>
     
-      <a href="servicios.html" class="dlr-mobile-link">Servicios</a>
+      <a href="#servicios" class="dlr-mobile-link">Servicios</a>
     
       <a href="casos.html" class="dlr-mobile-link">Casos de éxito</a>
     
-      <a href="nosotros.html" class="dlr-mobile-link">Nosotros</a>
+      <a href="#nosotros" class="dlr-mobile-link">Nosotros</a>
     
-      <a href="contacto.html" class="dlr-mobile-link">Contacto</a>
+      <a href="#contacto" class="dlr-mobile-link">Contacto</a>
     
     <a href="#contacto" class="dlr-btn-outline dlr-press" style="margin-top:13px; text-align:center; border:1px solid #CEE3B5; color:#CEE3B5; border-radius:999px; padding:13px; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.14em; font-family:'IBM Plex Sans', sans-serif;">Contáctanos</a>
   </div>
@@ -220,24 +221,22 @@
       <div style="display:flex; align-items:center; gap:11px; margin-bottom:34px;">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 3c.3 2.7 1 4.8 2.1 6.3 1.4 1.9 3.3 2.9 5.9 3.2-2.6.3-4.5 1.3-5.9 3.2C13 17.2 12.3 19.3 12 22c-.3-2.7-1-4.8-2.1-6.3-1.4-1.9-3.3-2.9-5.9-3.2 2.6-.3 4.5-1.3 5.9-3.2C11 7.8 11.7 5.7 12 3z" fill="#F6A9D3" opacity="0.85"/></svg>
         <span style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.24em; color:rgba(255,255,255,0.65); font-family:'IBM Plex Sans', sans-serif;">
-          <span data-i18n="es">Laboratorio digital — México y más allá</span><span data-i18n="en">Digital lab — Mexico and beyond</span>
+          Laboratorio digital — México y más allá
         </span>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 3c.3 2.7 1 4.8 2.1 6.3 1.4 1.9 3.3 2.9 5.9 3.2-2.6.3-4.5 1.3-5.9 3.2C13 17.2 12.3 19.3 12 22c-.3-2.7-1-4.8-2.1-6.3-1.4-1.9-3.3-2.9-5.9-3.2 2.6-.3 4.5-1.3 5.9-3.2C11 7.8 11.7 5.7 12 3z" fill="#F6A9D3" opacity="0.85"/></svg>
       </div>
       <h1 class="dlr-hero-h1" style="margin:0; font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:132px; line-height:0.95; letter-spacing:-0.035em;">
-        <span data-i18n="es"><span style="color:#F6A9D3; text-shadow:0 0 44px rgba(246,169,211,0.45);">Innovación</span><br>digital, hecha<br>a tu <span style="color:#F6A9D3; text-shadow:0 0 44px rgba(246,169,211,0.45);">medida.</span></span>
-        <span data-i18n="en"><span style="color:#F6A9D3; text-shadow:0 0 44px rgba(246,169,211,0.45);">Innovation</span><br>made digital,<br>made to <span style="color:#F6A9D3; text-shadow:0 0 44px rgba(246,169,211,0.45);">measure.</span></span>
+        <span style="color:#F6A9D3; text-shadow:0 0 44px rgba(246,169,211,0.45);">Innovación</span><br>digital, hecha<br>a tu <span style="color:#F6A9D3; text-shadow:0 0 44px rgba(246,169,211,0.45);">medida.</span>
       </h1>
       <p style="margin:34px 0 0; max-width:560px; font-size:19px; line-height:1.7; color:rgba(255,255,255,0.58); font-family:'IBM Plex Sans', sans-serif;">
-        <span data-i18n="es">Diseño de marca, digitalización y acompañamiento continuo para negocios independientes — sin plantillas genéricas, con un equipo de especialistas detrás de cada proyecto.</span>
-        <span data-i18n="en">Brand design, digitalization and ongoing support for independent businesses — no generic templates, with a team of specialists behind every project.</span>
+        Diseño de marca, digitalización y acompañamiento continuo para negocios independientes — sin plantillas genéricas, con un equipo de especialistas detrás de cada proyecto.
       </p>
       <div style="display:flex; gap:21px; margin-top:55px; flex-wrap:wrap;">
         <a href="#contacto" class="dlr-btn-outline dlr-press" style="border:1px solid #CEE3B5; color:#CEE3B5; border-radius:999px; padding:17px 34px; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.18em; font-family:'IBM Plex Sans', sans-serif;">
-          <span data-i18n="es">Cotiza gratis &rarr;</span><span data-i18n="en">Get a free quote &rarr;</span>
+          Cotiza gratis &rarr;
         </a>
         <a href="#casos" class="dlr-nav-link dlr-btn-ghost dlr-press" style="border:1px solid rgba(255,255,255,0.35); border-radius:999px; padding:17px 34px; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.18em; font-family:'IBM Plex Sans', sans-serif;">
-          <span data-i18n="es">Ver casos de éxito</span><span data-i18n="en">See success stories</span>
+          Ver casos de éxito
         </a>
       </div>
     </div>
@@ -248,8 +247,8 @@
     <span class="dlr-deco-hide-mobile" style="position:absolute; bottom:40px; right:55px; font-size:10px; font-weight:700; letter-spacing:0.2em; color:rgba(255,255,255,0.35); font-family:'IBM Plex Sans', sans-serif;">N 19.0414° · W 98.2063°</span>
   </section>
 
-  <!-- Editorial word scaffold -->
-  <section style="position:relative; padding:100px 55px; border-top:1px solid rgba(255,255,255,0.28); background:#0A0607; overflow:hidden;">
+  <!-- Editorial word scaffold / Nosotros -->
+  <section id="nosotros" style="position:relative; padding:100px 55px; border-top:1px solid rgba(255,255,255,0.28); background:#0A0607; overflow:hidden;">
     <div class="dlr-parallax" data-depth="0.07" style="top:-60px; left:10%; width:220px; height:220px;">
       <div class="dlr-sphere" style="background:radial-gradient(circle at 32% 28%, rgba(255,255,255,0.45), #F6A9D3 44%, rgba(0,0,0,0) 76%); opacity:0.3; animation:dlr-float-b 13s ease-in-out infinite;"></div>
     </div>
@@ -261,25 +260,25 @@
       <span style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.24em; color:rgba(255,255,255,0.65); font-family:'IBM Plex Sans', sans-serif;">Lo que nos define</span>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3c.3 2.7 1 4.8 2.1 6.3 1.4 1.9 3.3 2.9 5.9 3.2-2.6.3-4.5 1.3-5.9 3.2C13 17.2 12.3 19.3 12 22c-.3-2.7-1-4.8-2.1-6.3-1.4-1.9-3.3-2.9-5.9-3.2 2.6-.3 4.5-1.3 5.9-3.2C11 7.8 11.7 5.7 12 3z" fill="#F6A9D3" opacity="0.85"/></svg>
     </div>
-    <div class="dlr-grid-4 dlr-reveal dlr-stagger" style="position:relative; z-index:2; max-width:1330px; margin:0 auto; display:grid; grid-template-columns:repeat(4, 1fr); gap:21px; text-align:center;">
+    <div class="dlr-grid-words dlr-reveal dlr-stagger" style="position:relative; z-index:2; max-width:1330px; margin:0 auto; display:grid; grid-template-columns:repeat(2, 1fr); gap:21px 34px; text-align:center;">
       
         <div style="display:flex; flex-direction:column; align-items:center; gap:13px; max-width:100%;">
-          <span class="dlr-word-text" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:68px; letter-spacing:-0.025em; color:#FFFFFF; line-height:1.02; max-width:100%; overflow-wrap:break-word; word-break:break-word;">CERCANÍA</span>
+          <span class="dlr-word-text" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:58px; letter-spacing:-0.025em; color:#FFFFFF; line-height:1.02; max-width:100%; white-space:nowrap;">CERCANÍA</span>
           <span style="display:block; width:34px; height:2px; background:#FFFFFF; opacity:0.6;"></span>
         </div>
       
         <div style="display:flex; flex-direction:column; align-items:center; gap:13px; max-width:100%;">
-          <span class="dlr-word-text" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:68px; letter-spacing:-0.025em; color:#F6A9D3; line-height:1.02; max-width:100%; overflow-wrap:break-word; word-break:break-word;">EQUIPO</span>
+          <span class="dlr-word-text" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:58px; letter-spacing:-0.025em; color:#F6A9D3; line-height:1.02; max-width:100%; white-space:nowrap;">EQUIPO</span>
           <span style="display:block; width:34px; height:2px; background:#F6A9D3; opacity:0.6;"></span>
         </div>
       
         <div style="display:flex; flex-direction:column; align-items:center; gap:13px; max-width:100%;">
-          <span class="dlr-word-text" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:68px; letter-spacing:-0.025em; color:#FFFFFF; line-height:1.02; max-width:100%; overflow-wrap:break-word; word-break:break-word;">INNOVACIÓN</span>
+          <span class="dlr-word-text" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:58px; letter-spacing:-0.025em; color:#FFFFFF; line-height:1.02; max-width:100%; white-space:nowrap;">INNOVACIÓN</span>
           <span style="display:block; width:34px; height:2px; background:#FFFFFF; opacity:0.6;"></span>
         </div>
       
         <div style="display:flex; flex-direction:column; align-items:center; gap:13px; max-width:100%;">
-          <span class="dlr-word-text" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:68px; letter-spacing:-0.025em; color:#F6A9D3; line-height:1.02; max-width:100%; overflow-wrap:break-word; word-break:break-word;">PERSONALIZACIÓN</span>
+          <span class="dlr-word-text" style="font-family:'Plus Jakarta Sans', sans-serif; font-weight:800; font-size:58px; letter-spacing:-0.025em; color:#F6A9D3; line-height:1.02; max-width:100%; white-space:nowrap;">PERSONALIZACIÓN</span>
           <span style="display:block; width:34px; height:2px; background:#F6A9D3; opacity:0.6;"></span>
         </div>
       
@@ -679,13 +678,13 @@
           <div style="display:flex; flex-direction:column; gap:13px;">
             <span style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.18em; color:rgba(255,255,255,0.4); font-family:'IBM Plex Sans', sans-serif;">Navegación</span>
             
-              <a href="servicios.html" class="dlr-nav-link" style="font-size:13px; font-weight:600; font-family:'IBM Plex Sans', sans-serif;">Servicios</a>
+              <a href="#servicios" class="dlr-nav-link" style="font-size:13px; font-weight:600; font-family:'IBM Plex Sans', sans-serif;">Servicios</a>
             
               <a href="casos.html" class="dlr-nav-link" style="font-size:13px; font-weight:600; font-family:'IBM Plex Sans', sans-serif;">Casos de éxito</a>
             
-              <a href="nosotros.html" class="dlr-nav-link" style="font-size:13px; font-weight:600; font-family:'IBM Plex Sans', sans-serif;">Nosotros</a>
+              <a href="#nosotros" class="dlr-nav-link" style="font-size:13px; font-weight:600; font-family:'IBM Plex Sans', sans-serif;">Nosotros</a>
             
-              <a href="contacto.html" class="dlr-nav-link" style="font-size:13px; font-weight:600; font-family:'IBM Plex Sans', sans-serif;">Contacto</a>
+              <a href="#contacto" class="dlr-nav-link" style="font-size:13px; font-weight:600; font-family:'IBM Plex Sans', sans-serif;">Contacto</a>
             
           </div>
           <div style="display:flex; flex-direction:column; gap:13px;">
@@ -708,7 +707,7 @@
   </button>
 
   <!-- WhatsApp float -->
-  <a href="#" aria-label="Escribir por WhatsApp" style="position:fixed; right:28px; bottom:28px; width:56px; height:56px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,0.55); z-index:40;">
+  <a href="https://wa.me/525586779707?text=Hola%2C%20quiero%20más%20información%20sobre%20sus%20servicios" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp" style="position:fixed; right:28px; bottom:28px; width:56px; height:56px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,0.55); z-index:40;">
     <svg width="26" height="26" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.16c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.12.11-1.8-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.8-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.27-.29.58-.36.78-.36.2 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2 .89 2.14.07.14.11.31.02.5-.09.19-.14.31-.27.47-.14.16-.28.36-.4.48-.14.13-.28.28-.12.55.16.27.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.2 1.37.27.14.43.12.59-.07.16-.19.68-.79.86-1.06.18-.27.36-.22.6-.13.24.09 1.55.73 1.81.86.27.14.44.2.5.31.06.11.06.65-.18 1.32z"/></svg>
   </a>
 
@@ -798,19 +797,6 @@
       });
     }
 
-    // Language toggle (demo: hero + nav CTA only)
-    var langBtn = doc.querySelector('[data-lang-toggle]');
-    if (langBtn) {
-      var isEn = false;
-      langBtn.addEventListener('click', function () {
-        isEn = !isEn;
-        var esNodes = doc.querySelectorAll('[data-i18n="es"]');
-        var enNodes = doc.querySelectorAll('[data-i18n="en"]');
-        for (var a = 0; a < esNodes.length; a++) esNodes[a].style.display = isEn ? 'none' : '';
-        for (var b = 0; b < enNodes.length; b++) enNodes[b].style.display = isEn ? '' : 'none';
-      });
-    }
-
     // Contact form validation
     var form = doc.querySelector('[data-contact-form]');
     if (form) {
@@ -831,8 +817,20 @@
         var status = form.querySelector('[data-form-status]');
         if (!status) return;
         if (valid) {
-          status.textContent = '¡Listo! Te responderemos pronto.';
+          var nombre = (form.querySelector('[name="nombre"]') || {}).value || '';
+          var correo = (form.querySelector('[name="correo"]') || {}).value || '';
+          var telefono = (form.querySelector('[name="telefono"]') || {}).value || '';
+          var mensaje = (form.querySelector('[name="mensaje"]') || {}).value || '';
+          var lines = [
+            'Hola, soy ' + nombre + '.',
+            'Correo: ' + correo,
+            'WhatsApp: ' + telefono,
+            'Proyecto: ' + mensaje
+          ];
+          var waText = encodeURIComponent(lines.join('\n'));
+          status.textContent = 'Abriendo WhatsApp para enviar tu mensaje…';
           status.style.color = '#CEE3B5';
+          window.open('https://wa.me/525586779707?text=' + waText, '_blank');
           form.reset();
           for (var g = 0; g < fields.length; g++) fields[g].classList.remove('dlr-field-invalid');
         } else {
